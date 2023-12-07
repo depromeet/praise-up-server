@@ -1,4 +1,4 @@
-package com.praise.praisejail.interfaces.adapters.web.swagger;
+package com.praise.push.interfaces.adapters.web.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

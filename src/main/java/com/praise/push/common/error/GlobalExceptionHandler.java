@@ -1,4 +1,4 @@
-package com.praise.praisejail.common.error;
+package com.praise.push.common.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

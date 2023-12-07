@@ -1,13 +1,13 @@
-package com.praise.praisejail;
+package com.praise.push;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PraiseJailApplication {
+public class PraisePushApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PraiseJailApplication.class, args);
+        SpringApplication.run(PraisePushApplication.class, args);
     }
 
 }

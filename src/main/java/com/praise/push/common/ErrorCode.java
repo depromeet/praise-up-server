@@ -1,4 +1,4 @@
-package com.praise.praisejail.common;
+package com.praise.push.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
