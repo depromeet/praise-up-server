@@ -41,6 +41,23 @@ jacoco {
     toolVersion = "0.8.9"
 }
 
+def Qdomains = []
+for (qPattern in '**/QA'..'**/QZ') {
+    Qdomains.add(qPattern + '*')
+}
+
+def excludePatterns = [
+        "**/*Application*",
+        "**/*Config*",
+        "**/*Exception*",
+        "**/*Request*",
+        "**/*Response*",
+        "**/*Dto*",
+        "**/*Interceptor*",
+        "**/*Filter*",
+        "**/*Resolver*"
+]
+
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport // test -> jacocoTestReport
@@ -53,24 +70,29 @@ jacocoTestReport {
         csv.required.set(false)
     }
 
-    def Qdomains = []
-    for (qPattern in '**/QA'..'**/QZ') {
-        Qdomains.add(qPattern + '*')
-    }
-    afterEvaluate {
-        classDirectories.setFrom(
-                files(classDirectories.files.collect {
-                    fileTree(dir: it, excludes: [
-                            "**/*Application*",
-                            "**/*Config*",
-                            "**/*Dto*",
-                            "**/*Request*",
-                            "**/*Response*",
-                            "**/*Interceptor*",
-                            "**/*Exception*"
-                    ] + Qdomains)
-                })
-        )
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, excludes: excludePatterns + Qdomains)
+            })
+    )
+
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.30
+            }
+
+            // excludes doesn't work, so replace it with the code below
+            classDirectories.setFrom(tasks.jacocoTestReport.classDirectories)
+        }
     }
 }
 /* jacoco setting end */
