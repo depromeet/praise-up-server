@@ -1,4 +1,4 @@
-package com.praise.praisejail.domain;
+package com.praise.push.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
