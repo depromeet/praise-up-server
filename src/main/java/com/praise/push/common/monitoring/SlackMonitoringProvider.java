@@ -1,5 +1,6 @@
-package com.praise.push.common.error;
+package com.praise.push.common.monitoring;
 
+import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import net.gpedro.integrations.slack.*;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package com.praise.push.common.error;
+package com.praise.push.common.monitoring;
 
 import jakarta.servlet.http.HttpServletRequest;
 

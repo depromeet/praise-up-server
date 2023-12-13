@@ -1,5 +1,6 @@
 package com.praise.push.common.error;
 
+import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
