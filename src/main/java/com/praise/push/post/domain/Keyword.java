@@ -46,9 +46,4 @@ public class Keyword extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
     private List<Comment> comments;
 
-    /**
-     * 공개 여부
-     */
-    private Boolean visible;
-
 }
