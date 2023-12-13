@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -43,7 +44,7 @@ public class User extends BaseTimeEntity {
     /**
      * 생년월일
      */
-    private LocalDateTime birthday;
+    private LocalDate birthday;
 
     /**
      * 이메일
@@ -76,7 +77,7 @@ public class User extends BaseTimeEntity {
     private UserAuth userAuth;
 
     @Builder
-    public User(String nickname, String profileImage, LocalDateTime birthday, String email, String phoneNumber) {
+    public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber) {
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.birthday = birthday;
