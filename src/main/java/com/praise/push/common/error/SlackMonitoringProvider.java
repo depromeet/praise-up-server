@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class SlackErrorMonitoringProvider implements ErrorMonitoringProvider {
+public class SlackMonitoringProvider implements MonitoringProvider {
 
     @Value("${error.webhook.url}")
     private String webHookUrl;

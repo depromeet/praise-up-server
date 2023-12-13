@@ -2,7 +2,7 @@ package com.praise.push.common.error;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-public interface ErrorMonitoringProvider {
+public interface MonitoringProvider {
     /**
      * push the message to error monitoring platform
      */

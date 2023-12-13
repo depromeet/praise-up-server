@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final ErrorMonitoringProvider errorMonitoringProvider;
+    private final MonitoringProvider monitoringProvider;
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleRuntimeException(final RuntimeException exception) {
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(final Exception exception, final HttpServletRequest request) {
-        errorMonitoringProvider.push(exception, request);
+        monitoringProvider.push(exception, request);
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

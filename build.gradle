@@ -58,7 +58,8 @@ def excludePatterns = [
         "**/*Filter*",
         "**/*Resolver*",
         "**/*Error*",
-        "**/*Entity*"
+        "**/*Entity*",
+        "**/*Provider*"
 ]
 
 test {
