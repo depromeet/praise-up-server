@@ -10,3 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+error:
+  webhook:
+    url: ${PROD_WEBHOOK_URL}
