@@ -40,10 +40,4 @@ public class Keyword extends BaseTimeEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "keyword")
     private List<Post> posts;
 
-    /**
-     * 댓글
-     */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private List<Comment> comments;
-
 }
