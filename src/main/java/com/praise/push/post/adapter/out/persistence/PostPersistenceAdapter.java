@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
+    private final KeywordMapper keywordMapper;
 
     @Override
     public void createPost(Post post) {
@@ -20,6 +21,18 @@ public class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     @Override
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    @Override
+    public void updatePost(Long postId, Post post) {
+        PostJpaEntity postJpaEntity = postRepository.findById(postId).get();
+
+        postJpaEntity.setTitle(post.getTitle());
+        postJpaEntity.setContent(post.getContent());
+        postJpaEntity.setImageUrl(post.getImageUrl());
+        postJpaEntity.setKeyword(keywordMapper.mapToEntity(post.getKeyword()));
+
+        postRepository.save(postJpaEntity);
     }
 
     @Override
