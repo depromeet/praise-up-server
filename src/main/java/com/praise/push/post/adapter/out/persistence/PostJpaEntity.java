@@ -2,15 +2,14 @@ package com.praise.push.post.adapter.out.persistence;
 
 
 import com.praise.push.domain.BaseTimeEntity;
-import com.praise.push.post.domain.Keyword;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "posts")
 public class PostJpaEntity extends BaseTimeEntity {
 
@@ -40,9 +39,9 @@ public class PostJpaEntity extends BaseTimeEntity {
     /**
      * 키워드
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "keyword_id")
-    private Keyword keyword;
+    private KeywordJpaEntity keyword;
 
     /**
      * 게시글 공개 여부
