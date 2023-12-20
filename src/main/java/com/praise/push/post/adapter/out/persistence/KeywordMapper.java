@@ -10,4 +10,10 @@ public class KeywordMapper {
                 .keyword(keyword.getKeyword())
                 .build();
     }
+
+    Keyword mapToModel(KeywordJpaEntity keywordJpaEntity) {
+        return Keyword.builder()
+                .keyword(keywordJpaEntity.getKeyword())
+                .build();
+    }
 }
