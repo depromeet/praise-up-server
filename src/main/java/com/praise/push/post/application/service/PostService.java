@@ -35,4 +35,10 @@ public class PostService implements PostUseCase {
     public Post findPost(Long postId) {
         return loadPostPort.findPost(postId);
     }
+
+    @Override
+    public boolean deletePost(Long postId) {
+        recordPostPort.deletePost(postId);
+        return true;
+    }
 }

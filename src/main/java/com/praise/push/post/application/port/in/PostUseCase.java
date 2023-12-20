@@ -6,4 +6,6 @@ public interface PostUseCase {
     boolean createPost(CreatePostCommand command);
 
     Post findPost(Long postId);
+
+    boolean deletePost(Long postId);
 }
