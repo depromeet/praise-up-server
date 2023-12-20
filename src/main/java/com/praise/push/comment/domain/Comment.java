@@ -1,7 +1,7 @@
 package com.praise.push.comment.domain;
 
 import com.praise.push.domain.BaseTimeEntity;
-import com.praise.push.post.domain.Post;
+import com.praise.push.post.adapter.out.persistence.PostJpaEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +41,6 @@ public class Comment extends BaseTimeEntity {
      */
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post post;
+    private PostJpaEntity post;
 
 }
