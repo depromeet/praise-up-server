@@ -2,6 +2,7 @@ package com.praise.push.post.application.service;
 
 import com.praise.push.post.application.port.in.CreatePostCommand;
 import com.praise.push.post.application.port.in.PostUseCase;
+import com.praise.push.post.application.port.out.LoadPostPort;
 import com.praise.push.post.application.port.out.RecordPostPort;
 import com.praise.push.post.domain.Keyword;
 import com.praise.push.post.domain.Post;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PostService implements PostUseCase {
     private final RecordPostPort recordPostPort;
+    private final LoadPostPort loadPostPort;
 
     @Override
     public boolean createPost(CreatePostCommand command) {
