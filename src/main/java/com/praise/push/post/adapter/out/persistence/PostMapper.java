@@ -18,4 +18,14 @@ public class PostMapper {
                 .visible(post.getVisible())
                 .build();
     }
+
+    Post mapToModel(PostJpaEntity jpaEntity) {
+        return Post.builder()
+                .title(jpaEntity.getTitle())
+                .content(jpaEntity.getContent())
+                .imageUrl(jpaEntity.getImageUrl())
+                .keyword(keywordMapper.mapToModel(jpaEntity.getKeyword()))
+                .visible(jpaEntity.getVisible())
+                .build();
+    }
 }
