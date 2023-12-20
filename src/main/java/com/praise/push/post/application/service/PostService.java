@@ -2,6 +2,7 @@ package com.praise.push.post.application.service;
 
 import com.praise.push.post.application.port.in.CreatePostCommand;
 import com.praise.push.post.application.port.in.PostUseCase;
+import com.praise.push.post.application.port.in.UpdatePostCommand;
 import com.praise.push.post.application.port.out.LoadPostPort;
 import com.praise.push.post.application.port.out.RecordPostPort;
 import com.praise.push.post.domain.Keyword;
@@ -39,6 +40,19 @@ public class PostService implements PostUseCase {
     @Override
     public boolean deletePost(Long postId) {
         recordPostPort.deletePost(postId);
+        return true;
+    }
+
+    @Override
+    public boolean updatePost(Long postId, UpdatePostCommand command) {
+        Post post = Post.builder()
+                .title(command.getTitle())
+                .content(command.getContent())
+                .imageUrl(command.getImageUrl())
+                .keyword(Keyword.builder().keyword(command.getKeyword()).build())
+                .build();
+
+        recordPostPort.updatePost(postId, post);
         return true;
     }
 }

@@ -8,4 +8,6 @@ public interface PostUseCase {
     Post findPost(Long postId);
 
     boolean deletePost(Long postId);
+
+    boolean updatePost(Long postId, UpdatePostCommand command);
 }
