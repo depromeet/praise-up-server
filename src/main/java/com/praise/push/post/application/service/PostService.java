@@ -28,4 +28,9 @@ public class PostService implements PostUseCase {
         recordPostPort.createPost(post);
         return true;
     }
+
+    @Override
+    public Post findPost(Long postId) {
+        return loadPostPort.findPost(postId);
+    }
 }
