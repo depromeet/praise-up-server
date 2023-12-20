@@ -29,4 +29,9 @@ public class PostController {
                 .visible(post.getVisible())
                 .build();
     }
+
+    @DeleteMapping
+    void deletePost(@RequestParam(name = "postId") Long postId) {
+        postUseCase.deletePost(postId);
+    }
 }
