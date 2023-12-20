@@ -1,30 +1,16 @@
 package com.praise.push.post.domain;
 
-import com.praise.push.domain.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Builder
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
-@Table(name = "posts")
-public class Post extends BaseTimeEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Post {
 
     /**
      * 게시글 아이디
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
     private Long id;
 
     /**
@@ -45,13 +31,10 @@ public class Post extends BaseTimeEntity {
     /**
      * 키워드
      */
-    @ManyToOne
-    @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
     /**
      * 게시글 공개 여부
      */
     private Boolean visible;
-
 }
