@@ -18,6 +18,11 @@ public class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     }
 
     @Override
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    @Override
     public Post findPost(Long postId) {
         return postMapper.mapToModel(postRepository.findById(postId).get());
     }
