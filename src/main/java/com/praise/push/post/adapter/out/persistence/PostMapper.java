@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PostMapper {
+class PostMapper {
     private final KeywordMapper keywordMapper;
 
     PostJpaEntity mapToEntity(Post post) {

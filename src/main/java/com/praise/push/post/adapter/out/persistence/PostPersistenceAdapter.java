@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
+class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final KeywordMapper keywordMapper;

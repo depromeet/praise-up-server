@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/praise-push/api/v1")
 @RequiredArgsConstructor
-public class PostController {
+class PostController {
     private final PostUseCase postUseCase;
 
     @PostMapping
