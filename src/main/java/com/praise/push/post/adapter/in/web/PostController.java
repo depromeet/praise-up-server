@@ -20,7 +20,7 @@ class PostController {
     }
 
     @GetMapping
-    PostResponse findPost(@RequestParam(name = "postId") Long postId) {
+    PostResponse findPost(@PathVariable(name = "postId") Long postId) {
         Post post = postUseCase.findPost(postId);
         return PostResponse.builder()
                 .title(post.getTitle())
@@ -32,12 +32,12 @@ class PostController {
     }
 
     @DeleteMapping
-    void deletePost(@RequestParam(name = "postId") Long postId) {
+    void deletePost(@PathVariable(name = "postId") Long postId) {
         postUseCase.deletePost(postId);
     }
 
     @PatchMapping
-    PostResponse updatePost(@RequestParam(name = "postId") Long postId,
+    PostResponse updatePost(@PathVariable(name = "postId") Long postId,
                             @RequestBody UpdatePostCommand command) {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
