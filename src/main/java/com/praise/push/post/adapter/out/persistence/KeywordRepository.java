@@ -1,4 +1,4 @@
-package com.praise.push.post.adapter.out.persistance;
+package com.praise.push.post.adapter.out.persistence;
 
 import com.praise.push.post.domain.Keyword;
 import org.springframework.data.jpa.repository.JpaRepository;
