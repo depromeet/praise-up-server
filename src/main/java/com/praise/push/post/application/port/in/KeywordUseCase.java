@@ -1,6 +1,6 @@
 package com.praise.push.post.application.port.in;
 
-import com.praise.push.post.application.port.in.dto.KeywordResponseDto;
+import com.praise.push.post.domain.Keyword;
 
 import java.util.List;
 
@@ -8,5 +8,5 @@ public interface KeywordUseCase {
     /**
      * returns random keywords as many as size
      */
-    List<KeywordResponseDto> getRandomRecommendationKeywords(Integer size);
+    List<Keyword> getRandomRecommendationKeywords(Integer size);
 }

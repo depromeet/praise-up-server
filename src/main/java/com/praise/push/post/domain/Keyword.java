@@ -1,7 +1,5 @@
 package com.praise.push.post.domain;
 
-import java.util.List;
-
 import lombok.*;
 
 @Builder
@@ -11,18 +9,12 @@ import lombok.*;
 public class Keyword {
 
     /**
-     * 키워드 아이디
+     * keyword's id
      */
     private Long id;
 
     /**
-     * 키워드
+     * keyword's value
      */
     private String keyword;
-
-    /**
-     * 게시글
-     */
-    private List<Post> posts;
-
 }
