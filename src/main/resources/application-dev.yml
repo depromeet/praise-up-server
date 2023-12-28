@@ -9,7 +9,7 @@ spring:
       maximum-pool-size: 20
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
 error:
   webhook:
