@@ -13,6 +13,7 @@ class KeywordMapper {
 
     Keyword mapToModel(KeywordJpaEntity keywordJpaEntity) {
         return Keyword.builder()
+                .id(keywordJpaEntity.getId())
                 .keyword(keywordJpaEntity.getKeyword())
                 .build();
     }
