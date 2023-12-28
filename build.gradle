@@ -38,6 +38,12 @@ tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
+tasks {
+    processResources {
+        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+    }
+}
+
 /* jacoco setting start */
 jacoco {
     toolVersion = "0.8.9"
@@ -102,3 +108,16 @@ jacocoTestCoverageVerification {
     }
 }
 /* jacoco setting end */
+
+/**
+ * profile setting
+ */
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
+}

@@ -1,18 +1,15 @@
-package com.praise.push.post.domain;
+package com.praise.push.post.application.port.out;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
-
-    /**
-     * 게시글 아이디
-     */
-    private Long id;
-
+public class PostResponse {
     /**
      * 게시글 제목
      */
@@ -31,7 +28,7 @@ public class Post {
     /**
      * 키워드
      */
-    private Keyword keyword;
+    private String keyword;
 
     /**
      * 게시글 공개 여부
