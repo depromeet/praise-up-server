@@ -14,12 +14,12 @@ public record ResponseDto<T>(T data) {
     }
 
     /**
-     * returns http created(201) response with body data
+     * returns http created(201) response with empty body data
      */
-    public static <T> ResponseEntity<T> created(T data) {
+    public static <T> ResponseEntity<T> created() {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(data);
+                .build();
     }
 
     /**
