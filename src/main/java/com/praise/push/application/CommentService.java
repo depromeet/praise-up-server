@@ -2,6 +2,7 @@ package com.praise.push.application;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
+import com.praise.push.application.port.in.dto.CommentDetailResponseDto;
 import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.application.port.out.LoadCommentPort;
 import com.praise.push.application.port.out.LoadPostPort;
@@ -38,6 +39,13 @@ public class CommentService implements CommentUseCase {
     @Override
     public void deleteComment(Long commentId) {
         recordCommentPort.deleteComment(commentId);
+    }
+
+    @Override
+    public CommentDetailResponseDto getComment(Long commentId) {
+        Comment comment = loadCommentPort.loadComment(commentId);
+
+        return CommentDetailResponseDto.fromModel(comment);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.praise.push.adapter.in.web;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
+import com.praise.push.application.port.in.dto.CommentDetailResponseDto;
 import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.common.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,13 @@ class CommentController {
         commentUseCase.createComment(command, postId);
 
         return ResponseDto.noContent(); // TODO: replace created(201) with Empty Body
+    }
+
+    @GetMapping("/comments/{commentId}")
+    ResponseEntity<?> getComments(@PathVariable Long commentId) {
+        CommentDetailResponseDto comment = commentUseCase.getComment(commentId);
+
+        return ResponseDto.ok(comment);
     }
 
     @DeleteMapping("/comments/{commentId}")
