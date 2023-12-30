@@ -4,4 +4,5 @@ import com.praise.push.domain.Comment;
 
 public interface RecordCommentPort {
     void createComment(Comment comment);
+    void deleteComment(Long commentId);
 }

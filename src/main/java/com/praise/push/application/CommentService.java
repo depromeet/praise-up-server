@@ -19,7 +19,6 @@ public class CommentService implements CommentUseCase {
     private final LoadCommentPort loadCommentPort;
     private final RecordCommentPort recordCommentPort;
 
-    @Transactional
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
@@ -31,5 +30,10 @@ public class CommentService implements CommentUseCase {
                 .post(post)
                 .build();
         recordCommentPort.createComment(comment);
+    }
+
+    @Override
+    public void deleteComment(Long commentId) {
+        recordCommentPort.deleteComment(commentId);
     }
 }

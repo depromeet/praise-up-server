@@ -24,4 +24,11 @@ class CommentController {
 
         return ResponseDto.noContent();
     }
+
+    @DeleteMapping("/comments/{commentId}")
+    ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+        commentUseCase.deleteComment(commentId);
+
+        return ResponseDto.noContent();
+    }
 }

@@ -13,8 +13,19 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
 
+    /**
+     * persist comment entity
+     */
     @Override
     public void createComment(Comment comment) {
         commentRepository.save(commentMapper.mapToEntity(comment));
+    }
+
+    /**
+     * If comment exist, delete it. ignore it if dosen't exist.
+     */
+    @Override
+    public void deleteComment(Long commendId) {
+        commentRepository.deleteById(commendId);
     }
 }
