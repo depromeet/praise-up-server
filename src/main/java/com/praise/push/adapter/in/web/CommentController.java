@@ -25,7 +25,7 @@ class CommentController {
     ) {
         commentUseCase.createComment(command, postId);
 
-        return ResponseDto.noContent(); // TODO: replace created(201) with Empty Body
+        return ResponseDto.created();
     }
 
     @GetMapping("/comments/{commentId}")

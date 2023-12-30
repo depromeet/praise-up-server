@@ -26,7 +26,6 @@ public class CommentService implements CommentUseCase {
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
-        System.out.println(post.getKeyword().getKeyword());
         Comment comment = Comment.builder()
                 .nickname(command.getNickname())
                 .content(command.getContent())
