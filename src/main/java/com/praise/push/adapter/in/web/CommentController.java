@@ -1,10 +1,27 @@
 package com.praise.push.adapter.in.web;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.praise.push.application.port.in.CommentUseCase;
+import com.praise.push.application.port.in.CreateCommentCommand;
+import com.praise.push.common.dto.ResponseDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/praise-push/api/v1")
+@RequiredArgsConstructor
 @RestController
+@RequestMapping("/praise-up/api/v1")
 class CommentController {
 
+    private final CommentUseCase commentUseCase;
+
+    @PostMapping("/posts/{postId}/comments")
+    ResponseEntity<Void> createComment(
+        // TODO: uploaded image file
+        @RequestBody CreateCommentCommand command,
+        @PathVariable Long postId
+    ) {
+        commentUseCase.createComment(command, postId);
+
+        return ResponseDto.noContent();
+    }
 }
