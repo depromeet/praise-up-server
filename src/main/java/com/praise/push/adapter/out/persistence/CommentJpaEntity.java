@@ -38,7 +38,7 @@ class CommentJpaEntity extends BaseTimeEntity {
     /**
      * related post
      */
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "post_id")
     private PostJpaEntity post;
 
