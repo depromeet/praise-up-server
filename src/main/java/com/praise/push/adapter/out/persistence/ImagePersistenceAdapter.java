@@ -27,18 +27,20 @@ public class ImagePersistenceAdapter implements RecordImagePort {
 
     private final AmazonS3 objectStorage;
 
+    private static final Long MAX_FILE_SIZE = 1000000L;
+
     @Override
     public String uploadImage(MultipartFile file) {
         String fileName = createFileName(file.getOriginalFilename());
         String uploadFileUrl = "";
+
+        validateFileSize(file.getSize());
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         objectMetadata.setContentType(file.getContentType());
 
         try (InputStream inputStream = file.getInputStream()){
-
-
             // object storage 폴더 및 파일 업로드
             objectStorage.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
@@ -50,6 +52,12 @@ public class ImagePersistenceAdapter implements RecordImagePort {
         }
 
         return uploadFileUrl;
+    }
+
+    private void validateFileSize(long size) {
+        if (size >= MAX_FILE_SIZE) {
+            throw new RuntimeException("File size is over 1MB");
+        }
     }
 
     private String createFileName(String fileName) {
