@@ -1,4 +1,4 @@
-package com.praise.push.application.port;
+package com.praise.push.application;
 
 import com.praise.push.adapter.in.web.client.KakaoClient;
 import com.praise.push.application.port.out.KakaoInfo;
@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class LoginService {
 
     private final KakaoClient client;
