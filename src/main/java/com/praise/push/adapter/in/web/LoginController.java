@@ -1,27 +1,25 @@
 package com.praise.push.adapter.in.web;
 
-import com.praise.push.application.port.out.TokenJsonData;
-import com.praise.push.application.port.out.TokenResponse;
+import com.praise.push.application.port.out.KakaoAccount;
+import com.praise.push.application.port.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/praise-up/api/v1")
+@RestController
 @RequiredArgsConstructor
 @Slf4j
 public class LoginController  {
-    private final TokenJsonData tokenJsonData;
-    private final UserInfo userInfo;
-    private final UserService userService;
+    private final LoginService loginService;
 
     @GetMapping("/sign-up")
-    public String signUp(@RequestParam("coce") String code) {
-        log.info("code : {}", code);
+    public KakaoAccount signUp(@RequestParam("code") String code) {
+        log.info("code: {}", code);
+        KakaoAccount kakaoAccount = loginService.getAccessToken(code).getKakaoAccount();
+        log.info("KakaoAccount: {}", kakaoAccount);
+        return kakaoAccount;
     }
-
 }

@@ -10,7 +10,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-
+kakao:
+  authUrl: https://kauth.kakao.com/oauth/token
+  userApiUrl: https://kapi.kakao.com/v2/user/me
+  restapiKey: ${REST_APP_KEY}
+  redirectUrl: ${REDIRECT_URL}
 error:
   webhook:
     url: ${DEV_WEBHOOK_URL}
