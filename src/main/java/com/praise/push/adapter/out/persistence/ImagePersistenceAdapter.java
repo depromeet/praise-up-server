@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class ImagePersistenceAdapter implements RecordImagePort {
+class ImagePersistenceAdapter implements RecordImagePort {
     @Value("${cloud.naver.credentials.bucket}")
     private String bucket;
 
@@ -46,7 +46,7 @@ public class ImagePersistenceAdapter implements RecordImagePort {
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
             // s3에 업로드한 폴더 및 파일 URL
-            uploadFileUrl = endPoint + bucket + "/" + fileName;
+            uploadFileUrl = endPoint + "/" + bucket + "/" + fileName;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class ImagePersistenceAdapter implements RecordImagePort {
     }
 
     private void validateFileSize(long size) {
-        if (size >= MAX_FILE_SIZE) {
+        if (size > MAX_FILE_SIZE) {
             throw new RuntimeException("File size is over 1MB");
         }
     }
