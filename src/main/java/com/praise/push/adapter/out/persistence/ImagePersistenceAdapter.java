@@ -48,7 +48,7 @@ class ImagePersistenceAdapter implements RecordImagePort {
             // s3에 업로드한 폴더 및 파일 URL
             uploadFileUrl = endPoint + "/" + bucket + "/" + fileName;
         } catch (IOException e) {
-            e.printStackTrace();
+            // TODO: custom exception 추가
         }
 
         return uploadFileUrl;
