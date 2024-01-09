@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.SQLException;
-
 @Slf4j
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -19,6 +17,9 @@ public class GlobalExceptionHandler {
 
     private final MonitoringProvider monitoringProvider;
 
+    /**
+     * TODO: 추가 CustomException 추가
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(
             final Exception exception,
