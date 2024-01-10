@@ -9,13 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/praise-push/api/v1")
+@RequestMapping("/praise-up/api/v1")
 @RequiredArgsConstructor
 class PostController {
     private final PostUseCase postUseCase;
 
     @PostMapping
-    void createPost(@RequestBody CreatePostCommand command) {
+    void createPost(@ModelAttribute CreatePostCommand command) {
         postUseCase.createPost(command);
     }
 

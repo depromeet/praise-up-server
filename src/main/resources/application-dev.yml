@@ -10,7 +10,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-
 error:
   webhook:
     url: ${DEV_WEBHOOK_URL}
+cloud:
+  naver:
+    credentials:
+      end-point: "https://kr.object.ncloudstorage.com"
+      region: "kr-standard"
+      access-key: ${OBJECT_STORAGE_ACCESS_KEY}
+      secret-key: ${OBJECT_STORAGE_SECRET_KEY}
+      bucket: "praise-up-image"
