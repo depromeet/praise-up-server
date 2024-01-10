@@ -4,6 +4,7 @@ import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.out.LoadPostPort;
+import com.praise.push.application.port.out.RecordImagePort;
 import com.praise.push.application.port.out.RecordPostPort;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
@@ -16,14 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PostService implements PostUseCase {
     private final RecordPostPort recordPostPort;
+    private final RecordImagePort recordImagePort;
     private final LoadPostPort loadPostPort;
 
     @Override
     public boolean createPost(CreatePostCommand command) {
+        String imageUrl = recordImagePort.uploadImage(command.getImage());
+
         Post post = Post.builder()
                 .title(command.getTitle())
                 .content(command.getContent())
-                .imageUrl(command.getImageUrl())
+                .imageUrl(imageUrl)
                 .keyword(Keyword.builder().keyword(command.getKeyword()).build())
                 .visible(false)
                 .build();
