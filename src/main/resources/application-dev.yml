@@ -13,8 +13,8 @@ spring:
 kakao:
   authUrl: https://kauth.kakao.com/oauth/token
   userApiUrl: https://kapi.kakao.com/v2/user/me
-  restapiKey: ${REST_APP_KEY}
-  redirectUrl: ${REDIRECT_URL}
+  restapiKey: 2c6ce0e44b0542de868a8eb75b80a84a
+  redirectUrl: http://101.101.211.46:9001/praise-up/api/v1/sign-up
 error:
   webhook:
     url: ${DEV_WEBHOOK_URL}

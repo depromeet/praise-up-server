@@ -19,11 +19,13 @@ public class UserService {
 
     public LoginResponse doSocialLogin(KakaoAccount kakaoAccount) {
         Profile profile = kakaoAccount.getProfile();
-        Optional<User> user = userRepository.findByNickname(profile.getNickname());
+        String email = kakaoAccount.getEmail();
+        Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             return new LoginResponse(user.get());
         } else {
             User newUser = User.builder()
+                .email(email)
                 .nickname(profile.getNickname())
                 .profileImage(profile.getProfile_image_url())
                 .build();
