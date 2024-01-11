@@ -3,10 +3,7 @@ package com.praise.push.application;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.out.LoadKeywordPort;
-import com.praise.push.application.port.out.LoadPostPort;
-import com.praise.push.application.port.out.RecordImagePort;
-import com.praise.push.application.port.out.RecordPostPort;
+import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +18,7 @@ public class PostService implements PostUseCase {
     private final RecordImagePort recordImagePort;
     private final LoadPostPort loadPostPort;
     private final LoadKeywordPort keywordPort;
+    private final RecordCommentPort recordCommentPort;
 
     @Override
     public boolean createPost(CreatePostCommand command) {
@@ -44,8 +42,10 @@ public class PostService implements PostUseCase {
         return loadPostPort.findPost(postId);
     }
 
+    @Transactional
     @Override
     public boolean deletePost(Long postId) {
+        recordCommentPort.deleteCommentsByPostId(postId);
         recordPostPort.deletePost(postId);
         return true;
     }
