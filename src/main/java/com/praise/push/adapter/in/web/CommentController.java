@@ -7,6 +7,7 @@ import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.common.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +18,10 @@ class CommentController {
 
     private final CommentUseCase commentUseCase;
 
-    @PostMapping("/posts/{postId}/comments")
+    @PostMapping(value = "/posts/{postId}/comments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Void> createComment(
-        // TODO: uploaded image file
-        @RequestBody CreateCommentCommand command,
-        @PathVariable Long postId
+        @ModelAttribute CreateCommentCommand command,
+        @PathVariable("postId") Long postId
     ) {
         commentUseCase.createComment(command, postId);
 
