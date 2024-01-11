@@ -14,5 +14,5 @@ public class CreatePostCommand {
     private String title;
     private String content;
     private MultipartFile image;
-    private String keyword;
+    private Long keywordId;
 }
