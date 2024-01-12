@@ -7,6 +7,7 @@ import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.application.port.out.LoadCommentPort;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordCommentPort;
+import com.praise.push.application.port.out.RecordImagePort;
 import com.praise.push.domain.Comment;
 import com.praise.push.domain.Post;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,16 @@ public class CommentService implements CommentUseCase {
     private final LoadPostPort loadPostPort;
     private final LoadCommentPort loadCommentPort;
     private final RecordCommentPort recordCommentPort;
+    private final RecordImagePort recordImagePort;
 
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
+        String imageUrl = recordImagePort.uploadImage(command.getImage());
         Comment comment = Comment.builder()
                 .nickname(command.getNickname())
                 .content(command.getContent())
-                .imageUrl("imageUrl") // TODO: replace uploaded image url
+                .imageUrl(imageUrl)
                 .post(post)
                 .build();
         recordCommentPort.createComment(comment);

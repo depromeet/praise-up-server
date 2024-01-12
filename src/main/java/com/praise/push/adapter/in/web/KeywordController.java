@@ -23,7 +23,7 @@ class KeywordController {
      * get recommendation keywords as many as size
      */
     @GetMapping("/keywords/recommendation")
-    ResponseEntity<List<Keyword>> recommendationKeywords(@RequestParam Integer size) {
+    ResponseEntity<List<Keyword>> recommendationKeywords(@RequestParam("size") Integer size) {
         return ResponseDto.ok(keywordUseCase.getRandomRecommendationKeywords(size));
     }
 }

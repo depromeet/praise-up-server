@@ -20,4 +20,12 @@ class KeywordPersistenceAdapter implements LoadKeywordPort {
         return keywordRepository.findAll()
                 .stream().map(keywordMapper::mapToModel).collect(Collectors.toList());
     }
+
+    @Override
+    public Keyword loadKeywordById(Long keywordId) {
+        KeywordJpaEntity keyword = keywordRepository.findById(keywordId)
+                .orElseThrow(() -> new RuntimeException("Not Exist"));
+
+        return keywordMapper.mapToModel(keyword);
+    }
 }
