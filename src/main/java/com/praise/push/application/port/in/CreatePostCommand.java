@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePostCommand {
-    private String title;
     private String content;
     private MultipartFile image;
     private Long keywordId;

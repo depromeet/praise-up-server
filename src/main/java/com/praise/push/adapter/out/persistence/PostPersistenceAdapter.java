@@ -27,7 +27,6 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     public void updatePost(Long postId, Post post) {
         PostJpaEntity postJpaEntity = postRepository.findById(postId).get();
 
-        postJpaEntity.setTitle(post.getTitle());
         postJpaEntity.setContent(post.getContent());
         postJpaEntity.setImageUrl(post.getImageUrl());
         postJpaEntity.setKeyword(keywordMapper.mapToEntity(post.getKeyword()));

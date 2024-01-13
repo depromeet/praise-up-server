@@ -14,11 +14,6 @@ public class Post {
     private Long id;
 
     /**
-     * 게시글 제목
-     */
-    private String title;
-
-    /**
      * 게시글 본문
      */
     private String content;
