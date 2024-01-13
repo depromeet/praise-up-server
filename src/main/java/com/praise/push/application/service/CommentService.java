@@ -10,7 +10,7 @@ import com.praise.push.application.port.out.RecordCommentPort;
 import com.praise.push.application.port.out.RecordImagePort;
 import com.praise.push.domain.Comment;
 import com.praise.push.domain.Post;
-import com.praise.push.util.enums.Names;
+import com.praise.push.common.constant.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

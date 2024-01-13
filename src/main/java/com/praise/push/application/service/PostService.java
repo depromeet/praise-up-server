@@ -6,7 +6,7 @@ import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
-import com.praise.push.util.enums.Names;
+import com.praise.push.common.constant.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

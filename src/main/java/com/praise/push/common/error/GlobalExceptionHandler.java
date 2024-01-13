@@ -1,6 +1,6 @@
 package com.praise.push.common.error;
 
-import com.praise.push.common.ErrorCode;
+import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.common.error.model.ErrorResponseDto;
 import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
