@@ -1,6 +1,6 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
-import com.praise.push.adapter.in.web.client.KakaoClient;
+import com.praise.push.adapter.in.web.KakaoClient;
 import com.praise.push.application.port.out.KakaoInfo;
 import com.praise.push.application.port.out.KakaoToken;
 import java.net.URI;

@@ -1,9 +1,8 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
 import com.praise.push.application.port.in.KeywordUseCase;
 import com.praise.push.application.port.in.dto.KeywordResponseDto;
 import com.praise.push.application.port.out.LoadKeywordPort;
-import com.praise.push.domain.Keyword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-class KeywordService implements KeywordUseCase {
+public class KeywordService implements KeywordUseCase {
 
     private final LoadKeywordPort loadKeywordPort;
 

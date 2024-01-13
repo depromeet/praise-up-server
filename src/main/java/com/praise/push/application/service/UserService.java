@@ -1,11 +1,11 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
 import com.praise.push.adapter.out.persistence.UserRepository;
 import com.praise.push.application.port.out.KakaoAccount;
 import com.praise.push.application.port.out.LoginResponse;
 import com.praise.push.application.port.out.Profile;
 import com.praise.push.application.port.out.UserResponse;
-import com.praise.push.user.domain.User;
+import com.praise.push.domain.User;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

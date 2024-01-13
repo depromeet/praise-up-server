@@ -1,4 +1,4 @@
-package com.praise.push.user.domain.vo;
+package com.praise.push.domain.model;
 
 public enum OAuthProvider {
     KAKAO("kakao");

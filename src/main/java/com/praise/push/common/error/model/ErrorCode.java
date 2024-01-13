@@ -1,4 +1,4 @@
-package com.praise.push.common;
+package com.praise.push.common.error.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

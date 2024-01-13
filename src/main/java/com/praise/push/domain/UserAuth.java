@@ -1,6 +1,6 @@
-package com.praise.push.user.domain;
+package com.praise.push.domain;
 
-import com.praise.push.user.domain.vo.OAuthProvider;
+import com.praise.push.domain.model.OAuthProvider;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

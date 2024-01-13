@@ -37,19 +37,8 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
     }
 
     @Override
-    public Comment loadComment(Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
-                // TODO: replace custom exception
-                .orElseThrow(() -> new RuntimeException("Not Found Resource"));
-
-        return comment;
-    }
-
-    @Override
     public Page<Comment> loadComments(Post post, Pageable pageable) {
-        Page<Comment> comments = commentRepository
+        return commentRepository
                 .findAllByPostOrderByIdDesc(post, pageable);
-
-        return comments;
     }
 }

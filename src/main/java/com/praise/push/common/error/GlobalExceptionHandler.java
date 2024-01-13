@@ -1,7 +1,7 @@
 package com.praise.push.common.error;
 
-import com.praise.push.common.ErrorCode;
-import com.praise.push.common.error.dto.ErrorResponseDto;
+import com.praise.push.common.error.model.ErrorCode;
+import com.praise.push.common.error.model.ErrorResponseDto;
 import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.sql.SQLException;
 
 @Slf4j
 @RequiredArgsConstructor
