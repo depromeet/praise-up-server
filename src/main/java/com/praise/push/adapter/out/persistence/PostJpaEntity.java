@@ -40,7 +40,7 @@ class PostJpaEntity extends BaseTimeEntity {
     /**
      * 키워드
      */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "keyword_id")
     private KeywordJpaEntity keyword;
 

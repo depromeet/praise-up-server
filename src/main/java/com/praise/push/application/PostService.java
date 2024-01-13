@@ -3,9 +3,7 @@ package com.praise.push.application;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.out.LoadPostPort;
-import com.praise.push.application.port.out.RecordImagePort;
-import com.praise.push.application.port.out.RecordPostPort;
+import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +17,19 @@ public class PostService implements PostUseCase {
     private final RecordPostPort recordPostPort;
     private final RecordImagePort recordImagePort;
     private final LoadPostPort loadPostPort;
+    private final LoadKeywordPort keywordPort;
+    private final RecordCommentPort recordCommentPort;
 
     @Override
     public boolean createPost(CreatePostCommand command) {
         String imageUrl = recordImagePort.uploadImage(command.getImage());
+        Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
 
         Post post = Post.builder()
                 .title(command.getTitle())
                 .content(command.getContent())
                 .imageUrl(imageUrl)
-                .keyword(Keyword.builder().keyword(command.getKeyword()).build())
+                .keyword(keyword)
                 .visible(false)
                 .build();
 
@@ -41,8 +42,10 @@ public class PostService implements PostUseCase {
         return loadPostPort.findPost(postId);
     }
 
+    @Transactional
     @Override
     public boolean deletePost(Long postId) {
+        recordCommentPort.deleteCommentsByPostId(postId);
         recordPostPort.deletePost(postId);
         return true;
     }

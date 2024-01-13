@@ -7,6 +7,7 @@ import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.common.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +18,10 @@ class CommentController {
 
     private final CommentUseCase commentUseCase;
 
-    @PostMapping("/posts/{postId}/comments")
+    @PostMapping(value = "/posts/{postId}/comments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Void> createComment(
-        // TODO: uploaded image file
-        @RequestBody CreateCommentCommand command,
-        @PathVariable Long postId
+        @ModelAttribute CreateCommentCommand command,
+        @PathVariable("postId") Long postId
     ) {
         commentUseCase.createComment(command, postId);
 
@@ -29,14 +29,14 @@ class CommentController {
     }
 
     @GetMapping("/comments/{commentId}")
-    ResponseEntity<?> getComments(@PathVariable Long commentId) {
+    ResponseEntity<?> getComments(@PathVariable("commentId") Long commentId) {
         CommentDetailResponseDto comment = commentUseCase.getComment(commentId);
 
         return ResponseDto.ok(comment);
     }
 
     @DeleteMapping("/comments/{commentId}")
-    ResponseEntity<Void> deleteComment(@PathVariable Long commentId) {
+    ResponseEntity<Void> deleteComment(@PathVariable("commentId") Long commentId) {
         commentUseCase.deleteComment(commentId);
 
         return ResponseDto.noContent();
@@ -44,7 +44,7 @@ class CommentController {
 
     @GetMapping("/posts/{postId}/comments")
     ResponseEntity<Page<CommentSimpleResponseDto>> getComments(
-        @PathVariable Long postId,
+        @PathVariable("postId") Long postId,
         @RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {

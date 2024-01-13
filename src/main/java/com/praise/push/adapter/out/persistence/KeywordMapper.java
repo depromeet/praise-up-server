@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 class KeywordMapper {
     KeywordJpaEntity mapToEntity(Keyword keyword) {
         return KeywordJpaEntity.builder()
+                .id(keyword.getId())
                 .keyword(keyword.getKeyword())
                 .build();
     }

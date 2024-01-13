@@ -29,6 +29,6 @@ class KeywordJpaEntity extends BaseTimeEntity {
     /**
      * 게시글
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "keyword", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "keyword")
     private List<PostJpaEntity> posts;
 }

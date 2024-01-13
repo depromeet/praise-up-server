@@ -34,6 +34,11 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
     }
 
     @Override
+    public void deleteCommentsByPostId(Long postId) {
+        commentRepository.deleteByPostId(postId);
+    }
+
+    @Override
     public Comment loadComment(Long commentId) {
         CommentJpaEntity comment = commentRepository.findById(commentId)
                 // TODO: replace custom exception
