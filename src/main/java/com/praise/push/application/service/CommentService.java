@@ -1,4 +1,4 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;

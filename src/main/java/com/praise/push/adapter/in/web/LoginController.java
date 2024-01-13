@@ -1,8 +1,8 @@
 package com.praise.push.adapter.in.web;
 
-import com.praise.push.application.UserService;
+import com.praise.push.application.service.UserService;
 import com.praise.push.application.port.out.KakaoAccount;
-import com.praise.push.application.LoginService;
+import com.praise.push.application.service.LoginService;
 import com.praise.push.application.port.out.KakaoInfo;
 import com.praise.push.application.port.out.LoginResponse;
 import com.praise.push.application.port.out.UserResponse;

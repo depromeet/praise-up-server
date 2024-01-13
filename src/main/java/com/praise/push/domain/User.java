@@ -1,6 +1,5 @@
-package com.praise.push.user.domain;
+package com.praise.push.domain;
 
-import com.praise.push.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

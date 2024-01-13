@@ -4,7 +4,7 @@ import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
 import com.praise.push.application.port.in.dto.CommentDetailResponseDto;
 import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
-import com.praise.push.common.dto.ResponseDto;
+import com.praise.push.common.model.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;

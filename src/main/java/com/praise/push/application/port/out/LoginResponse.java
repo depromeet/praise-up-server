@@ -1,7 +1,7 @@
 package com.praise.push.application.port.out;
 
 
-import com.praise.push.user.domain.User;
+import com.praise.push.domain.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public record LoginResponse(
