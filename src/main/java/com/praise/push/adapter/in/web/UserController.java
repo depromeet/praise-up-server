@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,13 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable("id") Long id) {
-        UserResponse response = userService.getUserById(id);
+        var response = userService.getUserById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/user/{id}/nickname")
+    public ResponseEntity<UserResponse> changeNickname(@PathVariable("id") Long id, String nickname) {
+        var response = userService.changeNickname(id, nickname);
         return ResponseEntity.ok(response);
     }
 }

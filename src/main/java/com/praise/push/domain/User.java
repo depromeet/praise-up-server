@@ -83,4 +83,9 @@ public class User extends BaseTimeEntity {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
+    public User changeNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
 }
