@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
 class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
@@ -43,5 +45,10 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     @Override
     public Page<PostWithCommentCount> loadPosts(Pageable pageable) {
         return postRepository.findAllPostsWithCommentCount(pageable);
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 }
