@@ -31,7 +31,12 @@ public enum ErrorCode {
     /*
      * 400 BAD_REQUEST: 요청 인자가 유효하지 않음
      */
-    METHOD_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, "C-004", "Method Argument Not Valid");
+    METHOD_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, "C-004", "Method Argument Not Valid"),
+
+    /**
+     * 400 BAD_REQUEST: 최대 등록 가능 응답 개수 초과
+     */
+    EXCEED_MAXIMUM_COMMENTS_COUNT(HttpStatus.BAD_REQUEST, "C-005", "Exceed Maximum Comment Count");
 
     private final HttpStatus httpStatus;
     private final String errorCode;
