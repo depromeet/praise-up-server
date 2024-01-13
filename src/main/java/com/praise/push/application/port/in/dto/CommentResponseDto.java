@@ -4,14 +4,14 @@ import com.praise.push.domain.Comment;
 import lombok.Builder;
 
 @Builder
-public record CommentDetailResponseDto(
+public record CommentResponseDto(
         Long commentId,
         String nickname,
         String content,
         String imageUrl
 ) {
-    public static CommentDetailResponseDto fromEntity(Comment comment) {
-        return CommentDetailResponseDto.builder()
+    public static CommentResponseDto fromEntity(Comment comment) {
+        return CommentResponseDto.builder()
                 .commentId(comment.getId())
                 .nickname(comment.getNickname())
                 .content(comment.getContent())
