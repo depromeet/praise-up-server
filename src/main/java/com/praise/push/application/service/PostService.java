@@ -3,13 +3,16 @@ package com.praise.push.application.service;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
+import com.praise.push.application.port.in.dto.PostSummaryResponseDto;
 import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
 import com.praise.push.common.constant.Names;
-import java.time.LocalDateTime;
+import com.praise.push.domain.model.PostWithCommentCount;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +48,14 @@ public class PostService implements PostUseCase {
     }
 
     @Override
+    public Page<PostSummaryResponseDto> getPosts(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PostWithCommentCount> posts = loadPostPort.loadPosts(pageable);
+
+        return posts.map(PostSummaryResponseDto::fromEntity);
+    }
+
+    @Override
     public Post findPost(Long postId) {
         return loadPostPort.findPost(postId);
     }
@@ -67,17 +78,5 @@ public class PostService implements PostUseCase {
 
         recordPostPort.updatePost(postId, post);
         return true;
-    }
-
-    @Transactional
-    public void updateOpenStatus() {
-        var posts = loadPostPort.findAll();
-        var oneDayAgo = LocalDateTime.now().minusDays(1);
-
-        posts.stream().filter(post -> post.getCreatedDate().isAfter(oneDayAgo))
-            .forEach(post -> {
-                post.changeOpen(true);
-                recordPostPort.createPost(post);
-            });
     }
 }
