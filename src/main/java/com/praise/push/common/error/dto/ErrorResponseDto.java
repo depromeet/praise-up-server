@@ -1,6 +1,6 @@
 package com.praise.push.common.error.dto;
 
-import com.praise.push.common.ErrorCode;
+import com.praise.push.common.error.enums.ErrorCode;
 import lombok.Builder;
 import org.springframework.http.ResponseEntity;
 

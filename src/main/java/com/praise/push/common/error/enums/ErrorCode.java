@@ -1,4 +1,4 @@
-package com.praise.push.common;
+package com.praise.push.common.error.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

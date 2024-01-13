@@ -1,6 +1,6 @@
 package com.praise.push.common.error;
 
-import com.praise.push.common.ErrorCode;
+import com.praise.push.common.error.enums.ErrorCode;
 import com.praise.push.common.error.dto.ErrorResponseDto;
 import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     private final MonitoringProvider monitoringProvider;
 
     /**
-     * TODO: 추가 CustomException 추가
+     * TODO: PraiseUpException 추가
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(
