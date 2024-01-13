@@ -48,7 +48,7 @@ public class User extends BaseTimeEntity {
     /**
      * 이메일
      */
-    @Column(length = 20)
+    @Column(length = 50)
     private String email;
 
     /**
@@ -82,5 +82,10 @@ public class User extends BaseTimeEntity {
         this.birthday = birthday;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public User changeNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
     }
 }
