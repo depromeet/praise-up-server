@@ -1,6 +1,5 @@
 package com.praise.push.application;
 
-import com.praise.push.application.KeywordService;
 import com.praise.push.application.port.out.LoadKeywordPort;
 import com.praise.push.domain.Keyword;
 import org.junit.jupiter.api.DisplayName;
