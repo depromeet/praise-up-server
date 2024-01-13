@@ -1,5 +1,6 @@
 package com.praise.push.application;
 
+import com.praise.push.application.port.in.dto.KeywordResponseDto;
 import com.praise.push.application.port.out.LoadKeywordPort;
 import com.praise.push.domain.Keyword;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +32,7 @@ class KeywordServiceTest {
         given(loadKeywordPort.loadKeywords()).willReturn(keywords);
 
         // When
-        List<Keyword> result = keywordService.getRandomRecommendationKeywords(size);
+        List<KeywordResponseDto> result = keywordService.getRandomRecommendationKeywords(size);
 
         // Then
         assertThat(result.size()).isEqualTo(size);
