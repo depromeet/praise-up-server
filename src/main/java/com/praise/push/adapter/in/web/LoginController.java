@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,13 @@ public class LoginController  {
         KakaoInfo kakaoUserInfo = loginService.getAccessToken(code);
         KakaoAccount kakaoAccount = kakaoUserInfo.getKakaoAccount();
         return userService.doSocialLogin(kakaoAccount);
+    }
+
+    @Operation(summary = "로그아웃")
+    @ApiResponse(responseCode = "200", description = "로그아웃")
+    @GetMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        loginService.logout();
+        return ResponseEntity.noContent().build();
     }
 }
