@@ -50,4 +50,3 @@ public class Comment extends BaseTimeEntity {
         this.post = post;
     }
 }
-
