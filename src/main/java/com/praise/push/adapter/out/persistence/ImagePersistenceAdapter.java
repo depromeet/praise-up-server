@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -54,6 +55,27 @@ class ImagePersistenceAdapter implements RecordImagePort {
 
         return uploadFileUrl;
     }
+
+    private String getUploadYYMM() {
+        LocalDate now = LocalDate.now();
+        String year = String.valueOf(now.getYear()).substring(2);
+        String month = translateMonthValue(now.getMonthValue());
+
+        return year + month;
+    }
+
+    private String translateMonthValue(int monthValue) {
+        if (monthValue == 11) {
+            return String.valueOf(monthValue);
+        }
+
+        if (monthValue == 12) {
+            return String.valueOf(monthValue);
+        }
+
+        return "0" + monthValue;
+    }
+
 
     private void validateFileSize(long size) {
         if (size > MAX_FILE_SIZE) {
