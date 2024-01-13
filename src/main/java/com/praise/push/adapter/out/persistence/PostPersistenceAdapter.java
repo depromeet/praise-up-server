@@ -3,7 +3,10 @@ package com.praise.push.adapter.out.persistence;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordPostPort;
 import com.praise.push.domain.Post;
+import com.praise.push.domain.model.PostWithCommentCount;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -35,5 +38,10 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     @Override
     public Post findPost(Long postId) {
         return postRepository.findById(postId).get();
+    }
+
+    @Override
+    public Page<PostWithCommentCount> loadPosts(Pageable pageable) {
+        return postRepository.findAllPostsWithCommentCount(pageable);
     }
 }
