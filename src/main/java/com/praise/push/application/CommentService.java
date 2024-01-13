@@ -10,6 +10,7 @@ import com.praise.push.application.port.out.RecordCommentPort;
 import com.praise.push.application.port.out.RecordImagePort;
 import com.praise.push.domain.Comment;
 import com.praise.push.domain.Post;
+import com.praise.push.util.enums.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,7 +29,7 @@ public class CommentService implements CommentUseCase {
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
-        String imageUrl = recordImagePort.uploadImage(command.getImage());
+        String imageUrl = recordImagePort.uploadImage(Names.COMMENT_FOLDER_NAME.getName(), command.getImage());
         Comment comment = Comment.builder()
                 .nickname(command.getNickname())
                 .content(command.getContent())

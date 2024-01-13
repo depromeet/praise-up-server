@@ -30,9 +30,10 @@ class ImagePersistenceAdapter implements RecordImagePort {
     private static final Long MAX_FILE_SIZE = 1000000L;
 
     @Override
-    public String uploadImage(MultipartFile file) {
+    public String uploadImage(String domain, MultipartFile file) {
         String fileName = createFileName(file.getOriginalFilename());
-        String uploadFileUrl = "";
+        String filePath = domain + "/" + getUploadYYMM() + "/" + fileName;
+        String uploadFileUrl = endPoint + "/" + bucket + "/" + filePath;
 
         validateFileSize(file.getSize());
 
@@ -42,7 +43,7 @@ class ImagePersistenceAdapter implements RecordImagePort {
 
         try (InputStream inputStream = file.getInputStream()){
             // object storage 폴더 및 파일 업로드
-            objectStorage.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+            objectStorage.putObject(new PutObjectRequest(bucket, filePath, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
             // s3에 업로드한 폴더 및 파일 URL
