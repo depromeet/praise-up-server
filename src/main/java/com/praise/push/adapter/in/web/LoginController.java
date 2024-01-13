@@ -5,6 +5,9 @@ import com.praise.push.application.port.out.KakaoInfo;
 import com.praise.push.application.port.out.LoginResponse;
 import com.praise.push.application.service.LoginService;
 import com.praise.push.application.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/praise-up/api/v1")
 @RequiredArgsConstructor
 @Slf4j
+@Tag(name = "Login", description = "Login/Logout API")
 public class LoginController  {
     private final LoginService loginService;
     private final UserService userService;
 
+    @Operation(summary = "로그인")
+    @ApiResponse(responseCode = "200", description = "로그인 성공")
     @GetMapping("/sign-up")
     public LoginResponse signUp(@RequestParam("code") String code) {
         KakaoInfo kakaoUserInfo = loginService.getAccessToken(code);
