@@ -24,7 +24,6 @@ class PostController {
     PostResponse findPost(@PathVariable(name = "postId") Long postId) {
         Post post = postUseCase.findPost(postId);
         return PostResponse.builder()
-                .title(post.getTitle())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())
@@ -43,7 +42,6 @@ class PostController {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
         return PostResponse.builder()
-                .title(post.getTitle())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())

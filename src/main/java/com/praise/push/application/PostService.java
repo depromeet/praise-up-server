@@ -25,8 +25,12 @@ public class PostService implements PostUseCase {
         String imageUrl = recordImagePort.uploadImage(command.getImage());
         Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
 
+        /**
+         * TODO: DTO 검증
+         * - content 글자수 제한: 40자
+         */
+
         Post post = Post.builder()
-                .title(command.getTitle())
                 .content(command.getContent())
                 .imageUrl(imageUrl)
                 .keyword(keyword)
@@ -53,7 +57,6 @@ public class PostService implements PostUseCase {
     @Override
     public boolean updatePost(Long postId, UpdatePostCommand command) {
         Post post = Post.builder()
-                .title(command.getTitle())
                 .content(command.getContent())
                 .imageUrl(command.getImageUrl())
                 .keyword(Keyword.builder().keyword(command.getKeyword()).build())

@@ -11,11 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostResponse {
     /**
-     * 게시글 제목
-     */
-    private String title;
-
-    /**
      * 게시글 본문
      */
     private String content;
