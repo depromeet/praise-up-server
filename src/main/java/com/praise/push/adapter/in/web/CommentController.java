@@ -3,7 +3,6 @@ package com.praise.push.adapter.in.web;
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
 import com.praise.push.application.port.in.dto.CommentResponseDto;
-import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.common.model.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,13 +25,6 @@ class CommentController {
         commentUseCase.createComment(command, postId);
 
         return ResponseDto.created();
-    }
-
-    @GetMapping("/comments/{commentId}")
-    ResponseEntity<?> getComments(@PathVariable("commentId") Long commentId) {
-        CommentResponseDto comment = commentUseCase.getComment(commentId);
-
-        return ResponseDto.ok(comment);
     }
 
     @DeleteMapping("/comments/{commentId}")

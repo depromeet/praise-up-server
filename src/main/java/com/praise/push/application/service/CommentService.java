@@ -44,13 +44,6 @@ public class CommentService implements CommentUseCase {
     }
 
     @Override
-    public CommentResponseDto getComment(Long commentId) {
-        Comment comment = loadCommentPort.loadComment(commentId);
-
-        return CommentResponseDto.fromEntity(comment);
-    }
-
-    @Override
     public Page<CommentResponseDto> getComments(Long postId, Integer page, Integer size) {
         Post post = loadPostPort.findPost(postId);
         Pageable pageable = PageRequest.of(page, size);
