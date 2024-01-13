@@ -23,11 +23,11 @@ public class UserService {
         Profile profile = kakaoAccount.getProfile();
         String email = kakaoAccount.getEmail();
         Optional<User> user = userRepository.findByEmail(email);
+
         if (user.isPresent()) {
             return new LoginResponse(user.get());
         } else {
             User newUser = User.builder()
-                .email(email)
                 .nickname(profile.getNickname())
                 .profileImage(profile.getProfile_image_url())
                 .build();
