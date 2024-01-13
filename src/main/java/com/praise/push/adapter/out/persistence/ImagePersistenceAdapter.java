@@ -88,27 +88,27 @@ class ImagePersistenceAdapter implements RecordImagePort {
         String fileExtension = getFileExtension(fileName);
         validateFileExtension(fileExtension);
 
-        return UUID.randomUUID().toString().concat(fileExtension);
+        return UUID.randomUUID().toString().concat(".").concat(fileExtension);
     }
 
     private void validateFileExtension(String fileExtension) {
-        if (fileExtension.equals(Names.JPG_EXTENSION)) {
+        if (fileExtension.equals(Names.JPG_EXTENSION.getName())) {
             return;
         }
 
-        if (fileExtension.equals(Names.JPEG_EXTENSION)) {
+        if (fileExtension.equals(Names.JPEG_EXTENSION.getName())) {
             return;
         }
 
-        if (fileExtension.equals(Names.PNG_EXTENSION)) {
+        if (fileExtension.equals(Names.PNG_EXTENSION.getName())) {
             return;
         }
 
-        if (fileExtension.equals(Names.WEBP_EXTENSION)) {
+        if (fileExtension.equals(Names.WEBP_EXTENSION.getName())) {
             return;
         }
 
-        if (fileExtension.equals(Names.HEIC_EXTENSION)) {
+        if (fileExtension.equals(Names.HEIC_EXTENSION.getName())) {
             return;
         }
 
@@ -117,7 +117,7 @@ class ImagePersistenceAdapter implements RecordImagePort {
 
     private String getFileExtension(String fileName) {
         try {
-            return fileName.substring(fileName.lastIndexOf("."));
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
         } catch (StringIndexOutOfBoundsException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "잘못된 형식의 파일(" + fileName + ") 입니다.");
         }
