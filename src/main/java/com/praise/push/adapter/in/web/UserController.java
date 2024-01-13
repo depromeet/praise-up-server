@@ -7,15 +7,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Users", description = "User API")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final UserService userService;
 
@@ -38,18 +33,8 @@ public class UserController {
     @Operation(summary = "닉네임 변경")
     @ApiResponse(responseCode = "200", description = "닉네임 변경 성공")
     @PatchMapping("/user/{id}/nickname")
-    public ResponseEntity<UserResponse> changeNickname(@PathVariable("id") Long id, @RequestParam("nickname") String nickname) {
+    public ResponseEntity<UserResponse> changeNickname(@PathVariable("id") Long id, String nickname) {
         var response = userService.changeNickname(id, nickname);
         return ResponseEntity.ok(response);
-    }
-
-    @Operation(summary = "유저 탈퇴")
-    @ApiResponse(responseCode = "200", description = "유저 탈퇴 성공")
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id, @RequestParam("reason") String reason) {
-        userService.deleteUser(id, reason);
-        return ResponseEntity
-            .status(HttpStatus.NO_CONTENT)
-            .build();
     }
 }

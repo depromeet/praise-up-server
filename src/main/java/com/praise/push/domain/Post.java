@@ -1,16 +1,14 @@
 package com.praise.push.domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+@Entity(name = "posts")
 @Builder
 @AllArgsConstructor
-@Table(name = "posts")
 public class Post extends BaseTimeEntity {
 
     /**
