@@ -6,6 +6,7 @@ import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
+import com.praise.push.util.enums.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ public class PostService implements PostUseCase {
 
     @Override
     public boolean createPost(CreatePostCommand command) {
-        String imageUrl = recordImagePort.uploadImage(command.getImage());
+        String imageUrl = recordImagePort.uploadImage(Names.POST_FOLDER_NAME.getName(), command.getImage());
         Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
 
         /**

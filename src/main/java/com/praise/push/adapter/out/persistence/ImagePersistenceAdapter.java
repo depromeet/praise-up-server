@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.praise.push.application.port.out.RecordImagePort;
+import com.praise.push.util.enums.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -30,9 +32,10 @@ class ImagePersistenceAdapter implements RecordImagePort {
     private static final Long MAX_FILE_SIZE = 1000000L;
 
     @Override
-    public String uploadImage(MultipartFile file) {
+    public String uploadImage(String domain, MultipartFile file) {
         String fileName = createFileName(file.getOriginalFilename());
-        String uploadFileUrl = "";
+        String filePath = domain + "/" + getUploadYYMM() + "/" + fileName;
+        String uploadFileUrl = endPoint + "/" + bucket + "/" + filePath;
 
         validateFileSize(file.getSize());
 
@@ -42,7 +45,7 @@ class ImagePersistenceAdapter implements RecordImagePort {
 
         try (InputStream inputStream = file.getInputStream()){
             // object storage 폴더 및 파일 업로드
-            objectStorage.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+            objectStorage.putObject(new PutObjectRequest(bucket, filePath, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
 
             // s3에 업로드한 폴더 및 파일 URL
@@ -54,6 +57,27 @@ class ImagePersistenceAdapter implements RecordImagePort {
         return uploadFileUrl;
     }
 
+    private String getUploadYYMM() {
+        LocalDate now = LocalDate.now();
+        String year = String.valueOf(now.getYear()).substring(2);
+        String month = translateMonthValue(now.getMonthValue());
+
+        return year + month;
+    }
+
+    private String translateMonthValue(int monthValue) {
+        if (monthValue == 11) {
+            return String.valueOf(monthValue);
+        }
+
+        if (monthValue == 12) {
+            return String.valueOf(monthValue);
+        }
+
+        return "0" + monthValue;
+    }
+
+
     private void validateFileSize(long size) {
         if (size > MAX_FILE_SIZE) {
             throw new RuntimeException("File size is over 1MB");
@@ -61,7 +85,34 @@ class ImagePersistenceAdapter implements RecordImagePort {
     }
 
     private String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+        String fileExtension = getFileExtension(fileName);
+        validateFileExtension(fileExtension);
+
+        return UUID.randomUUID().toString().concat(fileExtension);
+    }
+
+    private void validateFileExtension(String fileExtension) {
+        if (fileExtension.equals(Names.JPG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.JPEG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.PNG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.WEBP_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.HEIC_EXTENSION)) {
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid FileExtension Exception");
     }
 
     private String getFileExtension(String fileName) {

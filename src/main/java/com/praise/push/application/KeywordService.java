@@ -1,14 +1,15 @@
 package com.praise.push.application;
 
 import com.praise.push.application.port.in.KeywordUseCase;
+import com.praise.push.application.port.in.dto.KeywordResponseDto;
 import com.praise.push.application.port.out.LoadKeywordPort;
-import com.praise.push.domain.Keyword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -18,8 +19,9 @@ class KeywordService implements KeywordUseCase {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Keyword> getRandomRecommendationKeywords(Integer size) {
-        List<Keyword> keywords = loadKeywordPort.loadKeywords();
+    public List<KeywordResponseDto> getRandomRecommendationKeywords(Integer size) {
+        List<KeywordResponseDto> keywords = loadKeywordPort.loadKeywords()
+                .stream().map(KeywordResponseDto::fromEntity).collect(Collectors.toList());
 
         if (keywords.size() <= size) {
             return keywords;

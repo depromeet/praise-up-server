@@ -1,38 +1,52 @@
 package com.praise.push.domain;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
-public class Comment {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity(name = "comments")
+public class Comment extends BaseTimeEntity {
 
     /**
      * comment's id
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id")
     private Long id;
 
     /**
-     * comment author's nickname
+     * nickname entered by comment author
      */
     private String nickname;
 
     /**
-     * comment's content
+     * content entered by comment author
      */
     private String content;
 
     /**
-     * comment's image url
+     * image uploaded by comment author
      */
     private String imageUrl;
 
     /**
      * related post
      */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id")
     private Post post;
+
+    @Builder
+    public Comment(Long id, String nickname, String content, String imageUrl, Post post) {
+        this.id = id;
+        this.nickname = nickname;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.post = post;
+    }
 }

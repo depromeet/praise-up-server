@@ -8,7 +8,7 @@ public record CommentSimpleResponseDto(
         Long commentId,
         String nickname
 ) {
-    public static CommentSimpleResponseDto fromModel(Comment comment) {
+    public static CommentSimpleResponseDto fromEntity(Comment comment) {
         return CommentSimpleResponseDto.builder()
                 .commentId(comment.getId())
                 .nickname(comment.getNickname())

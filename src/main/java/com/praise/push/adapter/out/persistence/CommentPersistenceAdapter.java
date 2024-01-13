@@ -14,15 +14,13 @@ import org.springframework.stereotype.Component;
 class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
 
     private final CommentRepository commentRepository;
-    private final CommentMapper commentMapper;
-    private final PostMapper postMapper;
 
     /**
      * persist comment entity
      */
     @Override
     public void createComment(Comment comment) {
-        commentRepository.save(commentMapper.mapToEntity(comment));
+        commentRepository.save(comment);
     }
 
     /**
@@ -40,18 +38,18 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
 
     @Override
     public Comment loadComment(Long commentId) {
-        CommentJpaEntity comment = commentRepository.findById(commentId)
+        Comment comment = commentRepository.findById(commentId)
                 // TODO: replace custom exception
                 .orElseThrow(() -> new RuntimeException("Not Found Resource"));
 
-        return commentMapper.mapToModel(comment);
+        return comment;
     }
 
     @Override
     public Page<Comment> loadComments(Post post, Pageable pageable) {
-        Page<CommentJpaEntity> comments = commentRepository
-                .findAllByPostOrderByIdDesc(postMapper.mapToEntity(post), pageable);
+        Page<Comment> comments = commentRepository
+                .findAllByPostOrderByIdDesc(post, pageable);
 
-        return comments.map(commentMapper::mapToModel);
+        return comments;
     }
 }
