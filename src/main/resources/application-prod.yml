@@ -13,8 +13,17 @@ spring:
 kakao:
   authUrl: https://kauth.kakao.com/oauth/token
   userApiUrl: https://kapi.kakao.com/v2/user/me
-  restapiKey: 2c6ce0e44b0542de868a8eb75b80a84a
-  redirectUrl: http://101.101.216.224:9002/praise-up/api/v1/sign-up
+  restapiKey: ${REST_API_KEY}
+  redirectUrl: ${PROD_REDIRECT_URL}
 error:
   webhook:
     url: ${PROD_WEBHOOK_URL}
+
+cloud:
+  naver:
+    credentials:
+      end-point: "https://kr.object.ncloudstorage.com"
+      region: "kr-standard"
+      access-key: ${OBJECT_STORAGE_ACCESS_KEY}
+      secret-key: ${OBJECT_STORAGE_SECRET_KEY}
+      bucket: "praise-up-image"
