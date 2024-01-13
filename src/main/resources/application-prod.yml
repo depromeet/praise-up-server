@@ -15,6 +15,7 @@ kakao:
   userApiUrl: https://kapi.kakao.com/v2/user/me
   restapiKey: ${REST_API_KEY}
   redirectUrl: ${PROD_REDIRECT_URL}
+  logoutUrl: ${PROD_LOGOUT_URL}
 error:
   webhook:
     url: ${PROD_WEBHOOK_URL}
