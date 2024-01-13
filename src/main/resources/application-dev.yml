@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DEV_DB_URL}
+    username: ${DEV_DB_USERNAME}
+    password: ${DEV_DB_PASSWORD}
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+  jpa:
+    hibernate:
+      ddl-auto: none
+kakao:
+  authUrl: https://kauth.kakao.com/oauth/token
+  userApiUrl: https://kapi.kakao.com/v2/user/me
+  restapiKey: 2c6ce0e44b0542de868a8eb75b80a84a
+  redirectUrl: http://101.101.211.46:9001/praise-up/api/v1/sign-up
+error:
+  webhook:
+    url: ${DEV_WEBHOOK_URL}
+cloud:
+  naver:
+    credentials:
+      end-point: "https://kr.object.ncloudstorage.com"
+      region: "kr-standard"
+      access-key: ${OBJECT_STORAGE_ACCESS_KEY}
+      secret-key: ${OBJECT_STORAGE_SECRET_KEY}
+      bucket: "praise-up-image"

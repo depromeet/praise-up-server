@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.5'
     id 'io.spring.dependency-management' version '1.1.3'
+    id 'jacoco'
 }
 
 group = 'com.praise'
@@ -21,20 +22,117 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2022.0.4")
+}
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'net.gpedro.integrations.slack:slack-webhook:1.4.0'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
+    implementation 'com.amazonaws:aws-java-sdk-s3'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('bootBuildImage') {
     builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
-tasks.named('test') {
+tasks {
+    processResources {
+        duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+    }
+}
+
+/* jacoco setting start */
+jacoco {
+    toolVersion = "0.8.9"
+}
+
+def Qdomains = []
+for (qPattern in '**/QA'..'**/QZ') {
+    Qdomains.add(qPattern + '*')
+}
+
+def excludePatterns = [
+        "**/*Application*",
+        "**/*Config*",
+        "**/*Exception*",
+        "**/*Request*",
+        "**/*Response*",
+        "**/*Dto*",
+        "**/*Interceptor*",
+        "**/*Filter*",
+        "**/*Resolver*",
+        "**/*Error*",
+        "**/*Entity*",
+        "**/*Provider*",
+        "**/domain/*"
+]
+
+test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport // test -> jacocoTestReport
+}
+
+jacocoTestReport {
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(false)
+    }
+
+    classDirectories.setFrom(
+            files(classDirectories.files.collect {
+                fileTree(dir: it, excludes: excludePatterns + Qdomains)
+            })
+    )
+
+    finalizedBy jacocoTestCoverageVerification
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+
+            limit {
+                counter = 'METHOD'
+                value = 'COVEREDRATIO'
+                minimum = 0.00
+            }
+
+            // excludes doesn't work, so replace it with the code below
+            classDirectories.setFrom(tasks.jacocoTestReport.classDirectories)
+        }
+    }
+}
+/* jacoco setting end */
+
+/**
+ * profile setting
+ */
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
 }

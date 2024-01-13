@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${PROD_DB_URL}
+    username: ${PROD_DB_USERNAME}
+    password: ${PROD_DB_PASSWORD}
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+  jpa:
+    hibernate:
+      ddl-auto: none
+kakao:
+  authUrl: https://kauth.kakao.com/oauth/token
+  userApiUrl: https://kapi.kakao.com/v2/user/me
+  restapiKey: 2c6ce0e44b0542de868a8eb75b80a84a
+  redirectUrl: http://101.101.216.224:9002/praise-up/api/v1/sign-up
+error:
+  webhook:
+    url: ${PROD_WEBHOOK_URL}
