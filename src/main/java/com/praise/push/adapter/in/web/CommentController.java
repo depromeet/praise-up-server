@@ -2,7 +2,7 @@ package com.praise.push.adapter.in.web;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
-import com.praise.push.application.port.in.dto.CommentDetailResponseDto;
+import com.praise.push.application.port.in.dto.CommentResponseDto;
 import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
 import com.praise.push.common.model.ResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ class CommentController {
 
     @GetMapping("/comments/{commentId}")
     ResponseEntity<?> getComments(@PathVariable("commentId") Long commentId) {
-        CommentDetailResponseDto comment = commentUseCase.getComment(commentId);
+        CommentResponseDto comment = commentUseCase.getComment(commentId);
 
         return ResponseDto.ok(comment);
     }
@@ -43,12 +43,12 @@ class CommentController {
     }
 
     @GetMapping("/posts/{postId}/comments")
-    ResponseEntity<Page<CommentSimpleResponseDto>> getComments(
+    ResponseEntity<Page<CommentResponseDto>> getComments(
         @PathVariable("postId") Long postId,
         @RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
-        Page<CommentSimpleResponseDto> comments = commentUseCase.getComments(postId, page, size);
+        Page<CommentResponseDto> comments = commentUseCase.getComments(postId, page, size);
 
         return ResponseDto.ok(comments);
     }
