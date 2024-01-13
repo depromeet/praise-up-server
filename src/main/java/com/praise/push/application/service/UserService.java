@@ -1,5 +1,6 @@
 package com.praise.push.application.service;
 
+import com.praise.push.adapter.in.web.KakaoClient;
 import com.praise.push.adapter.out.persistence.UserRepository;
 import com.praise.push.application.port.out.KakaoAccount;
 import com.praise.push.application.port.out.LoginResponse;

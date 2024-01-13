@@ -48,7 +48,7 @@ public class User extends BaseTimeEntity {
     /**
      * 이메일
      */
-    @Column(length = 20)
+    @Column(length = 50)
     private String email;
 
     /**

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-class KeywordService implements KeywordUseCase {
+public class KeywordService implements KeywordUseCase {
 
     private final LoadKeywordPort loadKeywordPort;
 
