@@ -26,4 +26,7 @@ public interface KakaoClient {
                         @RequestParam("redirect_uri") String redirectUrl,
                         @RequestParam("code") String code,
                         @RequestParam("grant_type") String grantType);
+
+    @PostMapping(consumes = APPLICATION_FORM_URLENCODED_UTF8_VALUE)
+    void logout(URI baseUrl);
 }

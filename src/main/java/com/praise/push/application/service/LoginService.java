@@ -28,6 +28,10 @@ public class LoginService {
     @Value("${kakao.redirect-url}")
     private String redirectUrl;
 
+    @Value("${kakao.logout-url}")
+    private String logoutUrl;
+
+
 
     public KakaoInfo getAccessToken(String code) {
         final KakaoToken token = getToken(code);
@@ -47,6 +51,14 @@ public class LoginService {
         } catch (Exception e) {
             log.error("Login get Token error", e);
             return KakaoToken.fail();
+        }
+    }
+
+    public void logout() {
+        try {
+            client.logout(new URI(logoutUrl));
+        } catch (Exception e) {
+            log.error("Logout error", e);
         }
     }
 }
