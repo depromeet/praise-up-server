@@ -1,16 +1,24 @@
 package com.praise.push.domain;
 
+
+import jakarta.persistence.*;
 import lombok.*;
 
-@Builder
 @Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Entity
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class Post {
+@Table(name = "posts")
+public class Post extends BaseTimeEntity {
 
     /**
      * 게시글 아이디
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
 
     /**
@@ -26,6 +34,8 @@ public class Post {
     /**
      * 키워드
      */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "keyword_id")
     private Keyword keyword;
 
     /**

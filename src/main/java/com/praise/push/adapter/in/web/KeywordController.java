@@ -1,5 +1,6 @@
 package com.praise.push.adapter.in.web;
 
+import com.praise.push.application.port.in.dto.KeywordResponseDto;
 import com.praise.push.common.dto.ResponseDto;
 import com.praise.push.application.port.in.KeywordUseCase;
 import com.praise.push.domain.Keyword;
@@ -23,7 +24,7 @@ class KeywordController {
      * get recommendation keywords as many as size
      */
     @GetMapping("/keywords/recommendation")
-    ResponseEntity<List<Keyword>> recommendationKeywords(@RequestParam("size") Integer size) {
+    ResponseEntity<List<KeywordResponseDto>> recommendationKeywords(@RequestParam("size") Integer size) {
         return ResponseDto.ok(keywordUseCase.getRandomRecommendationKeywords(size));
     }
 }
