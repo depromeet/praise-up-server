@@ -1,4 +1,4 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
 import com.praise.push.application.port.in.KeywordUseCase;
 import com.praise.push.application.port.in.dto.KeywordResponseDto;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-class KeywordService implements KeywordUseCase {
+public class KeywordService implements KeywordUseCase {
 
     private final LoadKeywordPort loadKeywordPort;
 

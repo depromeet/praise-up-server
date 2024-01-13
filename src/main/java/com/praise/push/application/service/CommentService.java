@@ -1,16 +1,15 @@
-package com.praise.push.application;
+package com.praise.push.application.service;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
-import com.praise.push.application.port.in.dto.CommentDetailResponseDto;
-import com.praise.push.application.port.in.dto.CommentSimpleResponseDto;
+import com.praise.push.application.port.in.dto.CommentResponseDto;
 import com.praise.push.application.port.out.LoadCommentPort;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordCommentPort;
 import com.praise.push.application.port.out.RecordImagePort;
 import com.praise.push.domain.Comment;
 import com.praise.push.domain.Post;
-import com.praise.push.util.enums.Names;
+import com.praise.push.common.constant.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -45,18 +44,11 @@ public class CommentService implements CommentUseCase {
     }
 
     @Override
-    public CommentDetailResponseDto getComment(Long commentId) {
-        Comment comment = loadCommentPort.loadComment(commentId);
-
-        return CommentDetailResponseDto.fromEntity(comment);
-    }
-
-    @Override
-    public Page<CommentSimpleResponseDto> getComments(Long postId, Integer page, Integer size) {
+    public Page<CommentResponseDto> getComments(Long postId, Integer page, Integer size) {
         Post post = loadPostPort.findPost(postId);
         Pageable pageable = PageRequest.of(page, size);
         Page<Comment> comments = loadCommentPort.loadComments(post, pageable);
 
-        return comments.map(CommentSimpleResponseDto::fromEntity);
+        return comments.map(CommentResponseDto::fromEntity);
     }
 }

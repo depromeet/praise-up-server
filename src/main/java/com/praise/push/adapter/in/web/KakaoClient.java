@@ -1,4 +1,4 @@
-package com.praise.push.adapter.in.web.client;
+package com.praise.push.adapter.in.web;
 
 import com.praise.push.application.port.out.KakaoInfo;
 import com.praise.push.application.port.out.KakaoToken;

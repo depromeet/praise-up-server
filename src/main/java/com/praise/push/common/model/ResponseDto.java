@@ -1,4 +1,4 @@
-package com.praise.push.common.dto;
+package com.praise.push.common.model;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
