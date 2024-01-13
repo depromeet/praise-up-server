@@ -3,6 +3,7 @@ package com.praise.push.adapter.out.persistence;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordPostPort;
 import com.praise.push.domain.Post;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -35,5 +36,10 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     @Override
     public Post findPost(Long postId) {
         return postRepository.findById(postId).get();
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 }
