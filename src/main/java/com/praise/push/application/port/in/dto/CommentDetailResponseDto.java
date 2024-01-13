@@ -10,7 +10,7 @@ public record CommentDetailResponseDto(
         String content,
         String imageUrl
 ) {
-    public static CommentDetailResponseDto fromModel(Comment comment) {
+    public static CommentDetailResponseDto fromEntity(Comment comment) {
         return CommentDetailResponseDto.builder()
                 .commentId(comment.getId())
                 .nickname(comment.getNickname())

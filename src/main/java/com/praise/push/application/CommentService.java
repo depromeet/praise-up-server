@@ -48,7 +48,7 @@ public class CommentService implements CommentUseCase {
     public CommentDetailResponseDto getComment(Long commentId) {
         Comment comment = loadCommentPort.loadComment(commentId);
 
-        return CommentDetailResponseDto.fromModel(comment);
+        return CommentDetailResponseDto.fromEntity(comment);
     }
 
     @Override
@@ -57,6 +57,6 @@ public class CommentService implements CommentUseCase {
         Pageable pageable = PageRequest.of(page, size);
         Page<Comment> comments = loadCommentPort.loadComments(post, pageable);
 
-        return comments.map(CommentSimpleResponseDto::fromModel);
+        return comments.map(CommentSimpleResponseDto::fromEntity);
     }
 }
