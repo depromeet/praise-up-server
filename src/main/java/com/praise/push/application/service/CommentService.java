@@ -28,6 +28,9 @@ public class CommentService implements CommentUseCase {
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
+
+        // TODO: 해당 post에 등록된 comment 개수가 250개라면 Exception 발생
+
         String imageUrl = recordImagePort.uploadImage(Names.COMMENT_FOLDER_NAME.getName(), command.getImage());
         Comment comment = Comment.builder()
                 .nickname(command.getNickname())

@@ -1,7 +1,9 @@
 package com.praise.push.common.error.exception;
 
 import com.praise.push.common.error.model.ErrorCode;
+import lombok.Getter;
 
+@Getter
 public class PraiseUpException extends RuntimeException {
     private final ErrorCode errorCode;
 

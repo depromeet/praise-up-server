@@ -2,6 +2,8 @@ package com.praise.push.adapter.out.persistence;
 
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordPostPort;
+import com.praise.push.common.error.exception.PraiseUpException;
+import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.domain.Post;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,8 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
 
     @Override
     public void updatePost(Long postId, Post post) {
-        Post postJpaEntity = postRepository.findById(postId).get();
+        Post postJpaEntity = postRepository.findById(postId)
+                .orElseThrow(() -> new PraiseUpException(ErrorCode.NOT_FOUND));
 
         postJpaEntity.setContent(post.getContent());
         postJpaEntity.setImageUrl(post.getImageUrl());
@@ -35,7 +38,8 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
 
     @Override
     public Post findPost(Long postId) {
-        return postRepository.findById(postId).get();
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new PraiseUpException(ErrorCode.NOT_FOUND));
     }
 
     @Override
