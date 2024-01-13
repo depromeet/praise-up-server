@@ -12,10 +12,9 @@ import org.springframework.stereotype.Component;
 public class PostBatchScheduler {
     private final PostBatchJob postBatchJob;
 
-    //@Scheduled(cron = "0 0 0 * * * ")
-    @Scheduled(cron = "38 0 14 1 * *")
+    @Scheduled(cron = "0 0 0 * * * ")
     public void runPostBatchJob() {
-        log.info("batch execute!!");
+        log.info("Post open batch execute!!");
         postBatchJob.run();
     }
 }
