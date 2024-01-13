@@ -25,6 +25,6 @@ cloud:
     credentials:
       end-point: "https://kr.object.ncloudstorage.com"
       region: "kr-standard"
-      access-key: 0Y9zGcnhx78p02I5SvVW
-      secret-key: mQTBmlEkck4riU1l64Vkh3xBKyMEfee43Arf3YOn
+      access-key: ${OBJECT_STORAGE_ACCESS_KEY}
+      secret-key: ${OBJECT_STORAGE_SECRET_KEY}
       bucket: "praise-up-image"
