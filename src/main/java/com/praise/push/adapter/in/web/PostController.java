@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/praise-up/api/v1")
 @RequiredArgsConstructor
 @Tag(name = "Posts", description = "Post API")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 class PostController {
     private final PostUseCase postUseCase;
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/praise-up/api/v1")
 @Tag(name = "Comments", description = "Comment API")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 class CommentController {
 
     private final CommentUseCase commentUseCase;
