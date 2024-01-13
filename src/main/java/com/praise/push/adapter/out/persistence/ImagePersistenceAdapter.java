@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.praise.push.application.port.out.RecordImagePort;
+import com.praise.push.util.enums.Names;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -84,7 +85,34 @@ class ImagePersistenceAdapter implements RecordImagePort {
     }
 
     private String createFileName(String fileName) {
-        return UUID.randomUUID().toString().concat(getFileExtension(fileName));
+        String fileExtension = getFileExtension(fileName);
+        validateFileExtension(fileExtension);
+
+        return UUID.randomUUID().toString().concat(fileExtension);
+    }
+
+    private void validateFileExtension(String fileExtension) {
+        if (fileExtension.equals(Names.JPG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.JPEG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.PNG_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.WEBP_EXTENSION)) {
+            return;
+        }
+
+        if (fileExtension.equals(Names.HEIC_EXTENSION)) {
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid FileExtension Exception");
     }
 
     private String getFileExtension(String fileName) {
