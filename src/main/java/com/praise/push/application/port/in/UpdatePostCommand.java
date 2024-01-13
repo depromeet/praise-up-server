@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdatePostCommand {
-    private String title;
     private String content;
     private String imageUrl;
     private String keyword;

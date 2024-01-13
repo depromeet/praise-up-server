@@ -23,11 +23,6 @@ class PostJpaEntity extends BaseTimeEntity {
     private Long id;
 
     /**
-     * 게시글 제목
-     */
-    private String title;
-
-    /**
      * 게시글 본문
      */
     private String content;
@@ -40,7 +35,7 @@ class PostJpaEntity extends BaseTimeEntity {
     /**
      * 키워드
      */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "keyword_id")
     private KeywordJpaEntity keyword;
 

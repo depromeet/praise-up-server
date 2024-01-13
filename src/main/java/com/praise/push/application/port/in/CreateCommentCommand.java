@@ -8,10 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreatePostCommand {
+@AllArgsConstructor
+public class CreateCommentCommand {
+    private String nickname;
     private String content;
     private MultipartFile image;
-    private Long keywordId;
 }

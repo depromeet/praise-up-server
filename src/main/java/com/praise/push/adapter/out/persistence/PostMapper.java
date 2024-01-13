@@ -11,7 +11,7 @@ class PostMapper {
 
     PostJpaEntity mapToEntity(Post post) {
         return PostJpaEntity.builder()
-                .title(post.getTitle())
+                .id(post.getId())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(keywordMapper.mapToEntity(post.getKeyword()))
@@ -21,7 +21,7 @@ class PostMapper {
 
     Post mapToModel(PostJpaEntity jpaEntity) {
         return Post.builder()
-                .title(jpaEntity.getTitle())
+                .id(jpaEntity.getId())
                 .content(jpaEntity.getContent())
                 .imageUrl(jpaEntity.getImageUrl())
                 .keyword(keywordMapper.mapToModel(jpaEntity.getKeyword()))
