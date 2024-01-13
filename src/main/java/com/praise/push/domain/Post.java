@@ -43,6 +43,11 @@ public class Post extends BaseTimeEntity {
      */
     private Boolean visible;
 
+    /**
+     * 게시글 공개 여부 변경
+     * @param status
+     * @return
+     */
     public Post changeOpen(boolean status) {
         this.visible = status;
         return this;

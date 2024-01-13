@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class PostBatchJob {
     private final PostService postService;
     public void run() {
+        log.info("Post Batch Job Execute");
         postService.updateOpenStatus();
     }
 }

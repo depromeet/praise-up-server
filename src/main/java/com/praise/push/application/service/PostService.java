@@ -74,7 +74,8 @@ public class PostService implements PostUseCase {
         var posts = loadPostPort.findAll();
         var oneDayAgo = LocalDateTime.now().minusDays(1);
 
-        posts.stream().filter(post -> post.getCreatedDate().isAfter(oneDayAgo))
+        posts.stream()
+            .filter(post -> post.getCreatedDate().isAfter(oneDayAgo))
             .forEach(post -> {
                 post.changeOpen(true);
                 recordPostPort.createPost(post);
