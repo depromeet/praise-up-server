@@ -14,7 +14,7 @@ public class PostBatchScheduler {
 
     @Scheduled(cron = "0 0 0 * * * ")
     public void runPostBatchJob() {
-        log.info("Post open batch execute!!");
+        log.info("Post open batch execute");
         postBatchJob.run();
     }
 }

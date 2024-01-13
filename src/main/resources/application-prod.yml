@@ -11,10 +11,11 @@ spring:
     hibernate:
       ddl-auto: none
 kakao:
-  authUrl: https://kauth.kakao.com/oauth/token
-  userApiUrl: https://kapi.kakao.com/v2/user/me
-  restapiKey: ${REST_API_KEY}
-  redirectUrl: ${PROD_REDIRECT_URL}
+  auth-url: https://kauth.kakao.com/oauth/token
+  user-api-url: https://kapi.kakao.com/v2/user/me
+  restapi-key: ${REST_API_KEY}
+  redirect-url: ${PROD_REDIRECT_URL}
+  logout-url: ${PROD_LOGOUT_URL}
 error:
   webhook:
     url: ${PROD_WEBHOOK_URL}

@@ -3,13 +3,13 @@ package com.praise.push.adapter.out.persistence;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordPostPort;
 import com.praise.push.domain.Post;
-import java.util.List;
-
 import com.praise.push.domain.model.PostWithCommentCount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
