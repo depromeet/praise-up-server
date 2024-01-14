@@ -27,8 +27,10 @@ class PostController {
     @Operation(summary = "게시글 등록")
     @ApiResponse(responseCode = "200", description = "게시글 등록 성공")
     @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    void createPost(@ModelAttribute CreatePostCommand command) {
+    ResponseEntity<Void> createPost(@ModelAttribute CreatePostCommand command) {
         postUseCase.createPost(command);
+
+        return ResponseDto.created();
     }
 
     @Operation(summary = "게시글 목록 조회")
@@ -45,7 +47,7 @@ class PostController {
     @Operation(summary = "게시글 단건 조회")
     @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     @GetMapping("/posts/{postId}")
-    PostResponse findPost(@PathVariable(name = "postId") Long postId) {
+    ResponseEntity<PostResponse> findPost(@PathVariable(name = "postId") Long postId) {
         Post post = postUseCase.findPost(postId);
         return PostResponse.builder()
                 .content(post.getContent())
@@ -65,7 +67,7 @@ class PostController {
     @Operation(summary = "게시글 수정")
     @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
     @PatchMapping("/posts/{postId}")
-    PostResponse updatePost(@PathVariable(name = "postId") Long postId,
+    ResponseEntity<PostResponse> updatePost(@PathVariable(name = "postId") Long postId,
                             @RequestBody UpdatePostCommand command) {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
@@ -75,5 +77,7 @@ class PostController {
                 .keyword(post.getKeyword().getKeyword())
                 .visible(post.getVisible())
                 .build();
+
+        return ResponseDto.ok(postResponse);
     }
 }
