@@ -41,4 +41,9 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
         return commentRepository
                 .findAllByPostOrderByIdDesc(post, pageable);
     }
+
+    @Override
+    public Long getCountByPostId(Long postId) {
+        return commentRepository.getCountByPostId(postId);
+    }
 }

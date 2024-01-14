@@ -7,6 +7,9 @@ import com.praise.push.application.port.out.LoadCommentPort;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordCommentPort;
 import com.praise.push.application.port.out.RecordImagePort;
+import com.praise.push.common.constant.Constants;
+import com.praise.push.common.error.exception.PraiseUpException;
+import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.domain.Comment;
 import com.praise.push.domain.Post;
 import com.praise.push.common.constant.Names;
@@ -28,6 +31,11 @@ public class CommentService implements CommentUseCase {
     @Override
     public void createComment(CreateCommentCommand command, Long postId) {
         Post post = loadPostPort.findPost(postId);
+        Long commentCount = loadCommentPort.getCountByPostId(postId);
+        if (commentCount >= Constants.MAX_COMMENT_SIZE.getSize()) {
+            throw new PraiseUpException(ErrorCode.EXCEED_MAXIMUM_COMMENTS_COUNT);
+        }
+
         String imageUrl = recordImagePort.uploadImage(Names.COMMENT_FOLDER_NAME.getName(), command.getImage());
         Comment comment = Comment.builder()
                 .nickname(command.getNickname())
