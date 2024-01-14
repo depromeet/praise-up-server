@@ -10,6 +10,7 @@ import com.praise.push.domain.Post;
 import com.praise.push.common.constant.Names;
 import com.praise.push.domain.model.PostWithCommentCount;
 import java.time.LocalDateTime;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +43,7 @@ public class PostService implements PostUseCase {
                 .imageUrl(imageUrl)
                 .keyword(keyword)
                 .visible(false)
+                .isRead(false)
                 .build();
 
         recordPostPort.createPost(post);
@@ -79,6 +81,15 @@ public class PostService implements PostUseCase {
 
         recordPostPort.updatePost(postId, post);
         return true;
+    }
+
+    @Override
+    public void updatePostReadState(Long postId) {
+        Post post = Post.builder()
+                .isRead(true)
+                .build();
+
+        recordPostPort.updatePostReadState(postId, post);
     }
 
     @Transactional
