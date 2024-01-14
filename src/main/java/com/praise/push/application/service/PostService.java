@@ -43,6 +43,7 @@ public class PostService implements PostUseCase {
                 .imageUrl(imageUrl)
                 .keyword(keyword)
                 .visible(false)
+                .isRead(false)
                 .build();
 
         recordPostPort.createPost(post);

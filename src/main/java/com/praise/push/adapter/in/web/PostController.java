@@ -71,11 +71,13 @@ class PostController {
                             @RequestBody UpdatePostCommand command) {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
-        return PostResponse.builder()
+
+        PostResponse postResponse = PostResponse.builder()
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())
                 .visible(post.getVisible())
+                .isRead(post.getIsRead())
                 .build();
 
         return ResponseDto.ok(postResponse);
