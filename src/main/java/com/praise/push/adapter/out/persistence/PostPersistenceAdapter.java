@@ -38,6 +38,15 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     }
 
     @Override
+    public void updatePostReadState(Long postId, Post post) {
+        Post postJpaEntity = postRepository.findById(postId).get();
+
+        postJpaEntity.setIsRead(post.getIsRead());
+
+        postRepository.save(postJpaEntity);
+    }
+
+    @Override
     public Post findPost(Long postId) {
         return postRepository.findById(postId).get();
     }

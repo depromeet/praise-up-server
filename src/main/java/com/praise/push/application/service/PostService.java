@@ -83,6 +83,15 @@ public class PostService implements PostUseCase {
         return true;
     }
 
+    @Override
+    public void updatePostReadState(Long postId) {
+        Post post = Post.builder()
+                .isRead(true)
+                .build();
+
+        recordPostPort.updatePostReadState(postId, post);
+    }
+
     @Transactional
     public void updateOpenStatus() {
         var posts = loadPostPort.findAll();

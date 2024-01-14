@@ -14,4 +14,6 @@ public interface PostUseCase {
     boolean deletePost(Long postId);
 
     boolean updatePost(Long postId, UpdatePostCommand command);
+
+    void updatePostReadState(Long postId);
 }

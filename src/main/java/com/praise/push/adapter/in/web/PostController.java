@@ -49,12 +49,20 @@ class PostController {
     @GetMapping("/posts/{postId}")
     ResponseEntity<PostResponse> findPost(@PathVariable(name = "postId") Long postId) {
         Post post = postUseCase.findPost(postId);
-        return PostResponse.builder()
+
+        PostResponse postResponse = PostResponse.builder()
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())
                 .visible(post.getVisible())
+                .isRead(post.getIsRead())
                 .build();
+
+        if (!post.getIsRead()) {
+            postUseCase.updatePostReadState(postId);
+        }
+
+        return ResponseDto.ok(postResponse);
     }
 
     @Operation(summary = "게시글 삭제")
