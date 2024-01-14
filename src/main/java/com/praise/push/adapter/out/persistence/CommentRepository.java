@@ -16,4 +16,7 @@ interface CommentRepository extends JpaRepository<Comment, Long> {
     @Modifying
     @Query(value = "delete from comments c where c.post.id = :postId")
     void deleteByPostId(@Param("postId") Long postId);
+
+    @Query("select count(co.id) from comments co where co.post.id = :postId")
+    Long getCountByPostId(@Param("postId") Long postId);
 }
