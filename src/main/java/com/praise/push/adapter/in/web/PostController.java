@@ -60,8 +60,10 @@ class PostController {
     @Operation(summary = "게시글 삭제")
     @ApiResponse(responseCode = "200", description = "게시글 삭제 성공")
     @DeleteMapping("/posts/{postId}")
-    void deletePost(@PathVariable(name = "postId") Long postId) {
+    ResponseEntity<Void> deletePost(@PathVariable(name = "postId") Long postId) {
         postUseCase.deletePost(postId);
+
+        return ResponseDto.noContent();
     }
 
     @Operation(summary = "게시글 수정")
