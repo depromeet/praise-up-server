@@ -29,4 +29,9 @@ public class PostResponse {
      * 게시글 공개 여부
      */
     private Boolean visible;
+
+    /**
+     * 게시글 읽음 여부
+     */
+    private Boolean isRead;
 }

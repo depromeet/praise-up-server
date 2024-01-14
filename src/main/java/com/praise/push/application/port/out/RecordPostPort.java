@@ -8,4 +8,6 @@ public interface RecordPostPort {
     void deletePost(Long postId);
 
     void updatePost(Long postId, Post post);
+
+    void updatePostReadState(Long postId, Post post);
 }
