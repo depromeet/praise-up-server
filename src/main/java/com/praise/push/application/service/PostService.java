@@ -51,9 +51,12 @@ public class PostService implements PostUseCase {
     }
 
     @Override
-    public Page<PostSummaryResponseDto> getPosts(Integer page, Integer size) {
+    public Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostWithCommentCount> posts = loadPostPort.loadPosts(pageable);
+        Page<PostWithCommentCount> posts = loadPostPort.loadVisiblePosts(pageable);
+
+        return posts.map(PostSummaryResponseDto::fromVisibleEntity);
+    }
 
         return posts.map(PostSummaryResponseDto::fromEntity);
     }

@@ -11,7 +11,7 @@ public record PostSummaryResponseDto(
         String keyword,
         Long commentCount
 ) {
-    public static PostSummaryResponseDto fromEntity(PostWithCommentCount postWithCommentCount) {
+    public static PostSummaryResponseDto fromVisibleEntity(PostWithCommentCount postWithCommentCount) {
         return PostSummaryResponseDto.builder()
                 .date(convertCreatedDate(postWithCommentCount.getPost().getCreatedDate()))
                 .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
