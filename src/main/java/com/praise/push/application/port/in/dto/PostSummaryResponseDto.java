@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 @Builder
 public record PostSummaryResponseDto(
         String date,
+        String imageUrl,
         String keyword,
         Long commentCount
 ) {
     public static PostSummaryResponseDto fromVisibleEntity(PostWithCommentCount postWithCommentCount) {
         return PostSummaryResponseDto.builder()
                 .date(convertCreatedDate(postWithCommentCount.getPost().getCreatedDate()))
+                .imageUrl(postWithCommentCount.getPost().getImageUrl())
                 .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
                 .commentCount(postWithCommentCount.getCommentCount())
                 .build();
