@@ -21,6 +21,14 @@ public record PostSummaryResponseDto(
                 .build();
     }
 
+    public static PostSummaryResponseDto fromInvisibleEntity(PostWithCommentCount postWithCommentCount) {
+        return PostSummaryResponseDto.builder()
+                .date(String.valueOf(postWithCommentCount.getPost().getCreatedDate()))
+                .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
+                .commentCount(postWithCommentCount.getCommentCount())
+                .build();
+    }
+
     private static String convertCreatedDate(LocalDateTime createdDate) {
         StringBuilder convertedDate = new StringBuilder();
 
