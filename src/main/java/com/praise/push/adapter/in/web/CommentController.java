@@ -2,8 +2,8 @@ package com.praise.push.adapter.in.web;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
+import com.praise.push.application.port.in.ReadCommentsQuery;
 import com.praise.push.application.port.in.dto.CommentResponseDto;
-import com.praise.push.common.error.exception.ValidationFailException;
 import com.praise.push.common.model.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static com.praise.push.common.constant.Messages.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -53,13 +51,10 @@ class CommentController {
     @GetMapping("/posts/{postId}/comments")
     ResponseEntity<Page<CommentResponseDto>> getComments(
         @PathVariable("postId") Long postId,
-        @RequestParam(value = "page", defaultValue = "0") Integer page,
-        @RequestParam(value = "size", defaultValue = "24") Integer size
+        @Valid @ModelAttribute ReadCommentsQuery readCommentsQuery
     ) {
-        if (page < 0) throw new ValidationFailException(PAGE_LESS_THAN_ZERO.getMessage());
-        if (size < 1) throw new ValidationFailException(PAGE_SIZE_LESS_THAN_ONE.getMessage());
 
-        Page<CommentResponseDto> comments = commentUseCase.getComments(postId, page, size);
+        Page<CommentResponseDto> comments = commentUseCase.getComments(postId, readCommentsQuery);
 
         return ResponseDto.ok(comments);
     }
