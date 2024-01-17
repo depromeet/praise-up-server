@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Constants {
     MAX_IMAGE_SIZE(1000000L),
+    MAX_COMMENT_SIZE(250L)
     ;
 
     private final long size;

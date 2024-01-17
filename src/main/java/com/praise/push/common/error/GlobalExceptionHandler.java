@@ -1,5 +1,6 @@
 package com.praise.push.common.error;
 
+import com.praise.push.common.error.exception.PraiseUpException;
 import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.common.error.model.ErrorResponseDto;
 import com.praise.push.common.monitoring.MonitoringProvider;
@@ -16,6 +17,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     private final MonitoringProvider monitoringProvider;
+
+    @ExceptionHandler(PraiseUpException.class)
+    public ResponseEntity<ErrorResponseDto> handlePraiseUpException(
+            final PraiseUpException exception,
+            final HttpServletRequest request
+    ) {
+        log.error("Exception: {}, Request URI: {}", exception.getMessage(), request.getRequestURL());
+
+        return ErrorResponseDto.build(exception.getErrorCode());
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleException(

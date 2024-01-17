@@ -1,6 +1,8 @@
 package com.praise.push.adapter.out.persistence;
 
 import com.praise.push.application.port.out.LoadKeywordPort;
+import com.praise.push.common.error.exception.PraiseUpException;
+import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.domain.Keyword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,9 +22,7 @@ class KeywordPersistenceAdapter implements LoadKeywordPort {
 
     @Override
     public Keyword loadKeywordById(Long keywordId) {
-        Keyword keyword = keywordRepository.findById(keywordId)
-                .orElseThrow(() -> new RuntimeException("Not Exist"));
-
-        return keyword;
+        return keywordRepository.findById(keywordId)
+                .orElseThrow(() -> new PraiseUpException(ErrorCode.NOT_FOUND));
     }
 }
