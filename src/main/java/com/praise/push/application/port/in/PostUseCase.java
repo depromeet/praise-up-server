@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface PostUseCase {
-    boolean createPost(CreatePostCommand command);
+    boolean createPost(Long userId, CreatePostCommand command);
 
     Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size);
 

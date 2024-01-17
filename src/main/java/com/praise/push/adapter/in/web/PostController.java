@@ -29,8 +29,10 @@ class PostController {
     @Operation(summary = "게시글 등록")
     @ApiResponse(responseCode = "201", description = "게시글 등록 성공")
     @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseEntity<Void> createPost(@ModelAttribute CreatePostCommand command) {
-        postUseCase.createPost(command);
+    ResponseEntity<Void> createPost(
+            @RequestParam Long userId,
+            @ModelAttribute CreatePostCommand command) {
+        postUseCase.createPost(userId, command);
 
         return ResponseDto.created();
     }

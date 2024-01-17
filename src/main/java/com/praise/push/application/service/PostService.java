@@ -8,6 +8,7 @@ import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
 import com.praise.push.common.constant.Names;
+import com.praise.push.domain.User;
 import com.praise.push.domain.model.PostWithCommentCount;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,12 +29,14 @@ public class PostService implements PostUseCase {
     private final RecordImagePort recordImagePort;
     private final LoadPostPort loadPostPort;
     private final LoadKeywordPort keywordPort;
+    private final LoadUserPort loadUserPort;
     private final RecordCommentPort recordCommentPort;
 
     @Override
-    public boolean createPost(CreatePostCommand command) {
+    public boolean createPost(Long userId, CreatePostCommand command) {
         String imageUrl = recordImagePort.uploadImage(Names.POST_FOLDER_NAME.getName(), command.getImage());
         Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
+        User user = loadUserPort.loadUserById(userId);
 
         /**
          * TODO:
@@ -48,6 +51,7 @@ public class PostService implements PostUseCase {
                 .content(command.getContent())
                 .imageUrl(imageUrl)
                 .keyword(keyword)
+                .user(user)
                 .visible(false)
                 .isRead(false)
                 .build();
