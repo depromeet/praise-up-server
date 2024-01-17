@@ -66,6 +66,7 @@ class PostController {
                 .keyword(post.getKeyword().getKeyword())
                 .visible(post.getVisible())
                 .isRead(post.getIsRead())
+                .postCreatedDate(java.sql.Timestamp.valueOf(post.getCreatedDate()))
                 .build();
 
         if (!post.getIsRead()) {
