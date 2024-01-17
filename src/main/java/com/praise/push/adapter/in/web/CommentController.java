@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,7 @@ class CommentController {
     @GetMapping("/posts/{postId}/comments")
     ResponseEntity<Page<CommentResponseDto>> getComments(
         @PathVariable("postId") Long postId,
-        @Valid @ModelAttribute ReadCommentsQuery readCommentsQuery
+        @Valid @ParameterObject @ModelAttribute ReadCommentsQuery readCommentsQuery
     ) {
 
         Page<CommentResponseDto> comments = commentUseCase.getComments(postId, readCommentsQuery);

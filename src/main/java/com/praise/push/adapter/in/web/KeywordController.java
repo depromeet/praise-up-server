@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ class KeywordController {
     @ApiResponse(responseCode = "200", description = "칭찬 키워드 조회 성공")
     @GetMapping("/keywords/recommendation")
     ResponseEntity<List<KeywordResponseDto>> recommendationKeywords(
-            @Valid @ModelAttribute ReadKeywordsQuery readKeywordsQuery
+            @Valid @ParameterObject @ModelAttribute ReadKeywordsQuery readKeywordsQuery
     ) {
         return ResponseDto.ok(keywordUseCase.getRandomRecommendationKeywords(readKeywordsQuery.size()));
     }
