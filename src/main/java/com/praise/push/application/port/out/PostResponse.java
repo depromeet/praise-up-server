@@ -1,9 +1,11 @@
 package com.praise.push.application.port.out;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.Date;
 
 @Builder
 @Getter
@@ -34,4 +36,10 @@ public class PostResponse {
      * 게시글 읽음 여부
      */
     private Boolean isRead;
+
+    /**
+     * 게시글 등록 일자
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date postCreatedDate;
 }
