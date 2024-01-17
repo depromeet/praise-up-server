@@ -41,15 +41,16 @@ class PostController {
     @ApiResponse(responseCode = "200", description = "게시글 목록 조회 성공")
     @GetMapping("/posts")
     ResponseEntity<?> getPosts(
+            @RequestParam Long userId,
             @RequestParam Boolean visible,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
         if (!visible) {
-            List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts();
+            List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts(userId);
             return ResponseDto.ok(posts);
         }
-        Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(page, size);
+        Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(userId, page, size);
         return ResponseDto.ok(posts);
     }
 
