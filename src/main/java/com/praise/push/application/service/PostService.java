@@ -58,7 +58,17 @@ public class PostService implements PostUseCase {
         return posts.map(PostSummaryResponseDto::fromVisibleEntity);
     }
 
-        return posts.map(PostSummaryResponseDto::fromEntity);
+    @Override
+    public List<PostSummaryResponseDto> getInvisiblePosts() {
+        List<PostWithCommentCount> posts = loadPostPort.loadInvisiblePosts();
+
+        if (posts == null) {
+            return null;
+        }
+
+        return posts.stream()
+                .map(PostSummaryResponseDto::fromInvisibleEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
