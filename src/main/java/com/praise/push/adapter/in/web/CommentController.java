@@ -26,7 +26,7 @@ class CommentController {
     private final CommentUseCase commentUseCase;
 
     @Operation(summary = "댓글 등록")
-    @ApiResponse(responseCode = "200", description = "댓글 등록 성공")
+    @ApiResponse(responseCode = "201", description = "댓글 등록 성공")
     @PostMapping(value = "/posts/{postId}/comments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Void> createComment(
         @Valid @ModelAttribute CreateCommentCommand command,
@@ -39,7 +39,7 @@ class CommentController {
     }
 
     @Operation(summary = "댓글 삭제")
-    @ApiResponse(responseCode = "200", description = "댓글 삭제 성공")
+    @ApiResponse(responseCode = "204", description = "댓글 삭제 성공")
     @DeleteMapping("/comments/{commentId}")
     ResponseEntity<Void> deleteComment(@PathVariable("commentId") Long commentId) {
         commentUseCase.deleteComment(commentId);
