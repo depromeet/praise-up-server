@@ -24,6 +24,7 @@ public record PostSummaryResponseDto(
     public static PostSummaryResponseDto fromInvisibleEntity(PostWithCommentCount postWithCommentCount) {
         return PostSummaryResponseDto.builder()
                 .date(String.valueOf(postWithCommentCount.getPost().getCreatedDate()))
+                .imageUrl(postWithCommentCount.getPost().getImageUrl())
                 .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
                 .commentCount(postWithCommentCount.getCommentCount())
                 .build();
