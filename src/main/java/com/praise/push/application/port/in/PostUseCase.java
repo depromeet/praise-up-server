@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface PostUseCase {
-    boolean createPost(CreatePostCommand command);
+    boolean createPost(Long userId, CreatePostCommand command);
 
-    Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size);
+    Page<PostSummaryResponseDto> getVisiblePosts(Long userId, Integer page, Integer size);
 
-    List<PostSummaryResponseDto> getInvisiblePosts();
+    List<PostSummaryResponseDto> getInvisiblePosts(Long userId);
 
     Post findPost(Long postId);
 

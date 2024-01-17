@@ -56,13 +56,13 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     }
 
     @Override
-    public Page<PostWithCommentCount> loadVisiblePosts(Pageable pageable) {
-        return postRepository.findAllPostsWithCommentCount(pageable);
+    public Page<PostWithCommentCount> loadVisiblePosts(Long userId, Pageable pageable) {
+        return postRepository.findAllPostsWithCommentCount(userId, pageable);
     }
 
     @Override
-    public List<PostWithCommentCount> loadInvisiblePosts() {
-        return postRepository.findInvisiblePostsWithCommentCount();
+    public List<PostWithCommentCount> loadInvisiblePosts(Long userId) {
+        return postRepository.findInvisiblePostsWithCommentCount(userId);
     }
 
     @Override

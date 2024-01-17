@@ -37,6 +37,13 @@ public class Post extends BaseTimeEntity {
     private Keyword keyword;
 
     /**
+     * related user
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    /**
      * 게시글 공개 여부
      */
     private Boolean visible;
