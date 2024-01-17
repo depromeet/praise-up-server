@@ -7,11 +7,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 interface PostRepository extends JpaRepository<Post, Long> {
+
+    @Query(value = "SELECT new com.praise.push.domain.model.PostWithCommentCount(p, COUNT(c)) " +
+            "FROM posts p LEFT JOIN comments c ON p.id = c.post.id " +
+            "WHERE  p.visible = true " +
+            "GROUP BY p.id " +
+            "ORDER BY p.id DESC ")
+    Page<PostWithCommentCount> findAllPostsWithCommentCount(Pageable pageable);
 
     @Query("SELECT new com.praise.push.domain.model.PostWithCommentCount(p, COUNT(c)) " +
             "FROM posts p LEFT JOIN comments c ON p.id = c.post.id " +
+            "WHERE p.visible = false " +
             "GROUP BY p.id " +
             "ORDER BY p.id DESC")
-    Page<PostWithCommentCount> findAllPostsWithCommentCount(Pageable pageable);
+    List<PostWithCommentCount> findInvisiblePostsWithCommentCount();
 }
