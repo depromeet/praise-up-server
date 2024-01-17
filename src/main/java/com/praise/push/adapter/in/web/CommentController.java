@@ -3,15 +3,19 @@ package com.praise.push.adapter.in.web;
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
 import com.praise.push.application.port.in.dto.CommentResponseDto;
+import com.praise.push.common.error.exception.ValidationFailException;
 import com.praise.push.common.model.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.praise.push.common.constant.Messages.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,9 +30,10 @@ class CommentController {
     @ApiResponse(responseCode = "200", description = "댓글 등록 성공")
     @PostMapping(value = "/posts/{postId}/comments", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Void> createComment(
-        @ModelAttribute CreateCommentCommand command,
+        @Valid @ModelAttribute CreateCommentCommand command,
         @PathVariable("postId") Long postId
     ) {
+
         commentUseCase.createComment(command, postId);
 
         return ResponseDto.created();
@@ -51,6 +56,9 @@ class CommentController {
         @RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
+        if (page < 0) throw new ValidationFailException(PAGE_LESS_THAN_ZERO.getMessage());
+        if (size < 1) throw new ValidationFailException(PAGE_SIZE_LESS_THAN_ONE.getMessage());
+
         Page<CommentResponseDto> comments = commentUseCase.getComments(postId, page, size);
 
         return ResponseDto.ok(comments);

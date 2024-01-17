@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.praise.push.common.constant.Messages.KEYWORD_SIZE_INVALID;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/praise-up/api/v1")
 @Tag(name = "keywords", description = "Keyword API")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 class KeywordController {
-    private static final String KEYWORD_SIZE_INVALID_MESSAGE = "size must be at least zero.";
-
     private final KeywordUseCase keywordUseCase;
 
     /**
@@ -32,9 +32,8 @@ class KeywordController {
     ResponseEntity<List<KeywordResponseDto>> recommendationKeywords(
             @RequestParam("size") Integer size
     ) {
-        if (size < 0) {
-            throw new ValidationFailException(KEYWORD_SIZE_INVALID_MESSAGE);
-        }
+        if (size < 0) throw new ValidationFailException(KEYWORD_SIZE_INVALID.getMessage());
+
         return ResponseDto.ok(keywordUseCase.getRandomRecommendationKeywords(size));
     }
 }
