@@ -16,6 +16,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/praise-up/api/v1")
 @RequiredArgsConstructor
@@ -36,11 +38,16 @@ class PostController {
     @Operation(summary = "게시글 목록 조회")
     @ApiResponse(responseCode = "200", description = "게시글 목록 조회 성공")
     @GetMapping("/posts")
-    ResponseEntity<Page<PostSummaryResponseDto>> getPosts(
+    ResponseEntity<?> getPosts(
+            @RequestParam Boolean visible,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
-        Page<PostSummaryResponseDto> posts = postUseCase.getPosts(page, size);
+        if (!visible) {
+            List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts();
+            return ResponseDto.ok(posts);
+        }
+        Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(page, size);
         return ResponseDto.ok(posts);
     }
 

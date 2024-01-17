@@ -10,6 +10,8 @@ import com.praise.push.domain.Post;
 import com.praise.push.common.constant.Names;
 import com.praise.push.domain.model.PostWithCommentCount;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,8 +36,12 @@ public class PostService implements PostUseCase {
         Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
 
         /**
-         * TODO: DTO 검증
+         * TODO:
+         * DTO 검증
          * - content 글자수 제한: 40자
+         *
+         * visible이 2개이면
+         * - 새로운 Post 생성 불가
          */
 
         Post post = Post.builder()
@@ -51,11 +57,24 @@ public class PostService implements PostUseCase {
     }
 
     @Override
-    public Page<PostSummaryResponseDto> getPosts(Integer page, Integer size) {
+    public Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostWithCommentCount> posts = loadPostPort.loadPosts(pageable);
+        Page<PostWithCommentCount> posts = loadPostPort.loadVisiblePosts(pageable);
 
-        return posts.map(PostSummaryResponseDto::fromEntity);
+        return posts.map(PostSummaryResponseDto::fromVisibleEntity);
+    }
+
+    @Override
+    public List<PostSummaryResponseDto> getInvisiblePosts() {
+        List<PostWithCommentCount> posts = loadPostPort.loadInvisiblePosts();
+
+        if (posts == null) {
+            return null;
+        }
+
+        return posts.stream()
+                .map(PostSummaryResponseDto::fromInvisibleEntity)
+                .collect(Collectors.toList());
     }
 
     @Override

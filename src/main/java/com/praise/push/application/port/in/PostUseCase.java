@@ -4,10 +4,14 @@ import com.praise.push.application.port.in.dto.PostSummaryResponseDto;
 import com.praise.push.domain.Post;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface PostUseCase {
     boolean createPost(CreatePostCommand command);
 
-    Page<PostSummaryResponseDto> getPosts(Integer page, Integer size);
+    Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size);
+
+    List<PostSummaryResponseDto> getInvisiblePosts();
 
     Post findPost(Long postId);
 
