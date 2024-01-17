@@ -61,16 +61,16 @@ public class PostService implements PostUseCase {
     }
 
     @Override
-    public Page<PostSummaryResponseDto> getVisiblePosts(Integer page, Integer size) {
+    public Page<PostSummaryResponseDto> getVisiblePosts(Long userId, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostWithCommentCount> posts = loadPostPort.loadVisiblePosts(pageable);
+        Page<PostWithCommentCount> posts = loadPostPort.loadVisiblePosts(userId, pageable);
 
         return posts.map(PostSummaryResponseDto::fromVisibleEntity);
     }
 
     @Override
-    public List<PostSummaryResponseDto> getInvisiblePosts() {
-        List<PostWithCommentCount> posts = loadPostPort.loadInvisiblePosts();
+    public List<PostSummaryResponseDto> getInvisiblePosts(Long userId) {
+        List<PostWithCommentCount> posts = loadPostPort.loadInvisiblePosts(userId);
 
         if (posts == null) {
             return null;
