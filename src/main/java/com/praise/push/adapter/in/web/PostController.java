@@ -30,8 +30,9 @@ class PostController {
     @ApiResponse(responseCode = "201", description = "게시글 등록 성공")
     @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<Void> createPost(
-            @RequestParam Long userId,
-            @ModelAttribute CreatePostCommand command) {
+            @RequestParam("userId") Long userId,
+            @ModelAttribute CreatePostCommand command
+    ) {
         postUseCase.createPost(userId, command);
 
         return ResponseDto.created();
@@ -41,8 +42,8 @@ class PostController {
     @ApiResponse(responseCode = "200", description = "게시글 목록 조회 성공")
     @GetMapping("/posts")
     ResponseEntity<?> getPosts(
-            @RequestParam Long userId,
-            @RequestParam Boolean visible,
+            @RequestParam("userId") Long userId,
+            @RequestParam("visible") Boolean visible,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
@@ -57,7 +58,9 @@ class PostController {
     @Operation(summary = "게시글 단건 조회")
     @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     @GetMapping("/posts/{postId}")
-    ResponseEntity<PostResponse> findPost(@PathVariable(name = "postId") Long postId) {
+    ResponseEntity<PostResponse> findPost(
+            @PathVariable(name = "postId") Long postId
+    ) {
         Post post = postUseCase.findPost(postId);
 
         PostResponse postResponse = PostResponse.builder()
@@ -79,7 +82,9 @@ class PostController {
     @Operation(summary = "게시글 삭제")
     @ApiResponse(responseCode = "200", description = "게시글 삭제 성공")
     @DeleteMapping("/posts/{postId}")
-    ResponseEntity<Void> deletePost(@PathVariable(name = "postId") Long postId) {
+    ResponseEntity<Void> deletePost(
+            @PathVariable(name = "postId") Long postId
+    ) {
         postUseCase.deletePost(postId);
 
         return ResponseDto.noContent();
@@ -88,8 +93,10 @@ class PostController {
     @Operation(summary = "게시글 수정")
     @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
     @PatchMapping("/posts/{postId}")
-    ResponseEntity<PostResponse> updatePost(@PathVariable(name = "postId") Long postId,
-                            @RequestBody UpdatePostCommand command) {
+    ResponseEntity<PostResponse> updatePost(
+            @PathVariable(name = "postId") Long postId,
+            @RequestBody UpdatePostCommand command
+    ) {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
 
