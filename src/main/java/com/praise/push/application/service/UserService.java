@@ -9,6 +9,7 @@ import com.praise.push.application.port.out.UserResponse;
 import com.praise.push.domain.User;
 import com.praise.push.domain.WithdrawalReason;
 import java.util.Optional;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,22 +23,34 @@ public class UserService {
     private final UserRepository userRepository;
     private final WithdrawalReasonRepository withdrawalReasonRepository;
 
+    String[] nicknames = {
+        "새벽별빛", "파도소리", "별무리", "라이언", "어피치", "단무지", "프로도", "네오", "무지", "콘",
+        "튜브", "제이지", "브라운", "코니", "샐리"
+    };
+
     public LoginResponse doSocialLogin(KakaoAccount kakaoAccount) {
         Profile profile = kakaoAccount.getProfile();
         String email = kakaoAccount.getEmail();
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
-            return new LoginResponse(user.get());
+            Long userId = user.get().getId();
+            return new LoginResponse(userId, false);
         } else {
             User newUser = User.builder()
                 .email(email)
-                .nickname(profile.getNickname())
+                .nickname(makeRandomNickname())
                 .profileImage(profile.getProfile_image_url())
+                .isSigned(true)
                 .build();
             User savedUser = userRepository.save(newUser);
-            return new LoginResponse(savedUser);
+            return new LoginResponse(savedUser.getId(), true);
         }
+    }
+
+    private String makeRandomNickname() {
+        Random random = new Random();
+        return nicknames[random.nextInt(nicknames.length)];
     }
 
     @Transactional(readOnly = true)

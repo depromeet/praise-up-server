@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "users")
+@Table(name = "users", indexes = {@Index(name = "idx_email", columnList = "email")})
 public class User extends BaseTimeEntity {
 
     /**
@@ -31,7 +32,7 @@ public class User extends BaseTimeEntity {
     /**
      * 사용자 닉네임
      */
-    @Column(length = 20, nullable = false)
+    @Column(length = 4, nullable = true)
     private String nickname;
 
     /**
@@ -75,13 +76,20 @@ public class User extends BaseTimeEntity {
     @OneToOne(mappedBy = "user")
     private UserAuth userAuth;
 
+    /**
+     * 첫 회원 가입 여부
+     */
+    @Column
+    private Boolean isSigned;
+
     @Builder
-    public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber) {
+    public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber, Boolean isSigned) {
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.birthday = birthday;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isSigned = isSigned;
     }
 
     public User changeNickname(String nickname) {

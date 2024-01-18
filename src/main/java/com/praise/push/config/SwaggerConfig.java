@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @OpenAPIDefinition(
-    info=@Info(title="Praise Jail API",
-        description="Praise Jail API v1.0",
+    info=@Info(title="Praise Up API",
+        description="Praise Up API v1.0",
         version="v1")
 )
 @RequiredArgsConstructor
@@ -21,7 +21,7 @@ public class SwaggerConfig {
         String [] paths = {"/*", "/**", "/api/**"};
 
         return GroupedOpenApi.builder()
-            .group("Praise Jail API v1.0")
+            .group("Praise Up API v1.0")
             .pathsToMatch(paths)
             .build();
     }

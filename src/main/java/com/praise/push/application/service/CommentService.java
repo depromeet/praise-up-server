@@ -2,6 +2,7 @@ package com.praise.push.application.service;
 
 import com.praise.push.application.port.in.CommentUseCase;
 import com.praise.push.application.port.in.CreateCommentCommand;
+import com.praise.push.application.port.in.ReadCommentsQuery;
 import com.praise.push.application.port.in.dto.CommentResponseDto;
 import com.praise.push.application.port.out.LoadCommentPort;
 import com.praise.push.application.port.out.LoadPostPort;
@@ -36,10 +37,10 @@ public class CommentService implements CommentUseCase {
             throw new PraiseUpException(ErrorCode.EXCEED_MAXIMUM_COMMENTS_COUNT);
         }
 
-        String imageUrl = recordImagePort.uploadImage(Names.COMMENT_FOLDER_NAME.getName(), command.getImage());
+        String imageUrl = recordImagePort.uploadImage(Names.COMMENT_FOLDER_NAME.getName(), command.image());
         Comment comment = Comment.builder()
-                .nickname(command.getNickname())
-                .content(command.getContent())
+                .nickname(command.nickname())
+                .content(command.content())
                 .imageUrl(imageUrl)
                 .post(post)
                 .build();
@@ -52,9 +53,9 @@ public class CommentService implements CommentUseCase {
     }
 
     @Override
-    public Page<CommentResponseDto> getComments(Long postId, Integer page, Integer size) {
+    public Page<CommentResponseDto> getComments(Long postId, ReadCommentsQuery readCommentsQuery) {
         Post post = loadPostPort.findPost(postId);
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(readCommentsQuery.page(), readCommentsQuery.size());
         Page<Comment> comments = loadCommentPort.loadComments(post, pageable);
 
         return comments.map(CommentResponseDto::fromEntity);

@@ -36,7 +36,12 @@ public enum ErrorCode {
     /**
      * 400 BAD_REQUEST: 최대 등록 가능 응답 개수 초과
      */
-    EXCEED_MAXIMUM_COMMENTS_COUNT(HttpStatus.BAD_REQUEST, "C-005", "Exceed Maximum Comment Count");
+    EXCEED_MAXIMUM_COMMENTS_COUNT(HttpStatus.BAD_REQUEST, "C-005", "Exceed Maximum Comment Count"),
+
+    /**
+     * 400 BAD_REQUEST: 유효성 검사 실패
+     */
+    VALIDATION_CHECK_FAIL(HttpStatus.BAD_REQUEST, "C-006", "Fail Validation Check");
 
     private final HttpStatus httpStatus;
     private final String errorCode;
