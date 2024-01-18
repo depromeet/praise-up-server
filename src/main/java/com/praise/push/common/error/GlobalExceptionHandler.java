@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,6 +18,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     private final MonitoringProvider monitoringProvider;
+
+    /**
+     * Handle exception that occurs when bean validation check fail
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponseDto> handleMethodArgumentNotValidException(
+            final MethodArgumentNotValidException exception
+    ) {
+        String message = exception.getFieldErrors().getFirst().getDefaultMessage();
+
+        return ErrorResponseDto.build(ErrorCode.VALIDATION_CHECK_FAIL, message);
+    }
 
     @ExceptionHandler(PraiseUpException.class)
     public ResponseEntity<ErrorResponseDto> handlePraiseUpException(

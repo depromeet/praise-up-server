@@ -1,17 +1,15 @@
 package com.praise.push.application.port.in;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class CreateCommentCommand {
-    private String nickname;
-    private String content;
-    private MultipartFile image;
+public record CreateCommentCommand(
+        @NotBlank(message = "nickname must not be blank.")
+        @Size(min = 1, max = 4, message = "nickname length must be 1 to 4.")
+        String nickname,
+        @Size(max = 40, message = "content length is up to 40.")
+        String content,
+        MultipartFile image
+) {
 }
