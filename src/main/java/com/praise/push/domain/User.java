@@ -76,13 +76,20 @@ public class User extends BaseTimeEntity {
     @OneToOne(mappedBy = "user")
     private UserAuth userAuth;
 
+    /**
+     * 첫 회원 가입 여부
+     */
+    @Column
+    private Boolean isSigned;
+
     @Builder
-    public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber) {
+    public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber, Boolean isSigned) {
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.birthday = birthday;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isSigned = isSigned;
     }
 
     public User changeNickname(String nickname) {
