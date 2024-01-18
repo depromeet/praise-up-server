@@ -28,15 +28,17 @@ public class UserService {
         Optional<User> user = userRepository.findByEmail(email);
 
         if (user.isPresent()) {
-            return new LoginResponse(user.get());
+            Long userId = user.get().getId();
+            return new LoginResponse(userId, false);
         } else {
             User newUser = User.builder()
                 .email(email)
                 .nickname(profile.getNickname())
                 .profileImage(profile.getProfile_image_url())
+                .isSigned(true)
                 .build();
             User savedUser = userRepository.save(newUser);
-            return new LoginResponse(savedUser);
+            return new LoginResponse(savedUser.getId(), true);
         }
     }
 
