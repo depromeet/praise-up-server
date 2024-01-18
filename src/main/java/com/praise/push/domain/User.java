@@ -32,7 +32,7 @@ public class User extends BaseTimeEntity {
     /**
      * 사용자 닉네임
      */
-    @Column(length = 20, nullable = false)
+    @Column(length = 4, nullable = true)
     private String nickname;
 
     /**
