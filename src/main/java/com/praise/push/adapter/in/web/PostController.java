@@ -43,7 +43,7 @@ class PostController {
     @GetMapping("/posts")
     ResponseEntity<?> getPosts(
             @RequestParam(value = "userId") Long userId,
-            @RequestParam(value = "isRead", required = false) Boolean isRead,
+            @RequestParam(value = "isRead") Boolean isRead,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
