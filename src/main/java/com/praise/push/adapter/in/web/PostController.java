@@ -42,15 +42,22 @@ class PostController {
     @ApiResponse(responseCode = "200", description = "게시글 목록 조회 성공")
     @GetMapping("/posts")
     ResponseEntity<?> getPosts(
-            @RequestParam("userId") Long userId,
-            @RequestParam("visible") Boolean visible,
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "isRead", required = false) Boolean isRead,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
-        if (!visible) {
+        /**
+         * 공개 전 게시글, 공개 후 확인 안한 게시글 조회
+         */
+        if (!isRead) {
             List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts(userId);
             return ResponseDto.ok(posts);
         }
+
+        /**
+         * 공개 후 확인한 게시글
+         */
         Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(userId, page, size);
         return ResponseDto.ok(posts);
     }
@@ -62,6 +69,10 @@ class PostController {
             @PathVariable(name = "postId") Long postId
     ) {
         Post post = postUseCase.findPost(postId);
+
+        /**
+         * TODO: post.visible = false이면 확인할 수 없는 게시글이다.
+         */
 
         PostResponse postResponse = PostResponse.builder()
                 .userNickname(post.getUser().getNickname())
