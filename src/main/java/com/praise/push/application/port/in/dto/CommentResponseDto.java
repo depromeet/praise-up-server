@@ -14,7 +14,7 @@ public record CommentResponseDto(
         return CommentResponseDto.builder()
                 .commentId(comment.getId())
                 .nickname(comment.getNickname())
-                .content(comment.getContent())
+                .content(comment.getContent() == null ? "" : comment.getContent())
                 .imageUrl(comment.getImageUrl())
                 .build();
     }
