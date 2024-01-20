@@ -64,6 +64,7 @@ class PostController {
         Post post = postUseCase.findPost(postId);
 
         PostResponse postResponse = PostResponse.builder()
+                .userNickname(post.getUser().getNickname())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())

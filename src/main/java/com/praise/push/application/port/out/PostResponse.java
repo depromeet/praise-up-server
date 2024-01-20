@@ -13,6 +13,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class PostResponse {
     /**
+     * 게시글 작성자
+     */
+    private String userNickname;
+
+    /**
      * 게시글 본문
      */
     private String content;
