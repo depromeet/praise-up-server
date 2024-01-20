@@ -11,7 +11,12 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponse {
+public class PostResponseDto {
+    /**
+     * post Id
+     */
+    private Long postId;
+
     /**
      * 게시글 작성자
      */
