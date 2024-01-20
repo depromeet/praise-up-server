@@ -16,7 +16,7 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "FROM posts p " +
             "JOIN p.user u " +
             "LEFT JOIN comments c ON c.post.id = p.id " +
-            "WHERE u.id = :userId AND p.visible = true " +
+            "WHERE u.id = :userId AND p.isRead = true " +
             "GROUP BY p " +
             "ORDER BY p.id DESC "
     )
@@ -26,7 +26,7 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "FROM posts p " +
             "JOIN p.user u " +
             "LEFT JOIN comments c ON c.post.id = p.id " +
-            "WHERE u.id = :userId AND p.visible = false " +
+            "WHERE u.id = :userId AND p.isRead = false " +
             "GROUP BY p " +
             "ORDER BY p.id DESC")
     List<PostWithCommentCount> findUnreadPostsWithCommentCount(@Param("userId") Long userId);
