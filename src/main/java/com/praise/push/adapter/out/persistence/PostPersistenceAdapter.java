@@ -19,8 +19,8 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     private final PostRepository postRepository;
 
     @Override
-    public void createPost(Post post) {
-        postRepository.save(post);
+    public Post createPost(Post post) {
+        return postRepository.save(post);
     }
 
     @Override

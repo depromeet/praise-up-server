@@ -16,10 +16,10 @@ public record ResponseDto<T>(T data) {
     /**
      * returns http created(201) response with empty body data
      */
-    public static <T> ResponseEntity<T> created() {
+    public static <T> ResponseEntity<T> created(T... body) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .build();
+                .body(body.length > 0 ? body[0] : null);
     }
 
     /**

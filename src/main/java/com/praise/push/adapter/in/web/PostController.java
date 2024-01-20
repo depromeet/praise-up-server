@@ -4,7 +4,7 @@ import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
-import com.praise.push.application.port.out.PostResponse;
+import com.praise.push.application.port.out.PostResponseDto;
 import com.praise.push.common.model.ResponseDto;
 import com.praise.push.domain.Post;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,13 +29,13 @@ class PostController {
     @Operation(summary = "게시글 등록")
     @ApiResponse(responseCode = "201", description = "게시글 등록 성공")
     @PostMapping(value = "/posts", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseEntity<Void> createPost(
+    ResponseEntity<PostResponseDto> createPost(
             @RequestParam("userId") Long userId,
             @ModelAttribute CreatePostCommand command
     ) {
-        postUseCase.createPost(userId, command);
+        PostResponseDto createdPost = postUseCase.createPost(userId, command);
 
-        return ResponseDto.created();
+        return ResponseDto.created(createdPost);
     }
 
     @Operation(summary = "게시글 목록 조회")
@@ -65,7 +65,7 @@ class PostController {
     @Operation(summary = "게시글 단건 조회")
     @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     @GetMapping("/posts/{postId}")
-    ResponseEntity<PostResponse> findPost(
+    ResponseEntity<PostResponseDto> findPost(
             @PathVariable(name = "postId") Long postId
     ) {
         Post post = postUseCase.findPost(postId);
@@ -74,7 +74,7 @@ class PostController {
          * TODO: post.visible = false이면 확인할 수 없는 게시글이다.
          */
 
-        PostResponse postResponse = PostResponse.builder()
+        PostResponseDto postResponse = PostResponseDto.builder()
                 .userNickname(post.getUser().getNickname())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
@@ -105,14 +105,14 @@ class PostController {
     @Operation(summary = "게시글 수정")
     @ApiResponse(responseCode = "200", description = "게시글 수정 성공")
     @PatchMapping("/posts/{postId}")
-    ResponseEntity<PostResponse> updatePost(
+    ResponseEntity<PostResponseDto> updatePost(
             @PathVariable(name = "postId") Long postId,
             @RequestBody UpdatePostCommand command
     ) {
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
 
-        PostResponse postResponse = PostResponse.builder()
+        PostResponseDto postResponse = PostResponseDto.builder()
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
                 .keyword(post.getKeyword().getKeyword())

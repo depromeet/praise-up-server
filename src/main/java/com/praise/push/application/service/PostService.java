@@ -33,7 +33,7 @@ public class PostService implements PostUseCase {
     private final RecordCommentPort recordCommentPort;
 
     @Override
-    public boolean createPost(Long userId, CreatePostCommand command) {
+    public PostResponseDto createPost(Long userId, CreatePostCommand command) {
         String imageUrl = recordImagePort.uploadImage(Names.POST_FOLDER_NAME.getName(), command.getImage());
         Keyword keyword = keywordPort.loadKeywordById(command.getKeywordId());
         User user = loadUserPort.loadUserById(userId);
@@ -53,8 +53,20 @@ public class PostService implements PostUseCase {
                 .isRead(false)
                 .build();
 
-        recordPostPort.createPost(post);
-        return true;
+        Post createdPost = recordPostPort.createPost(post);
+
+        PostResponseDto postResponseDto = PostResponseDto.builder()
+                .postId(createdPost.getId())
+                .content(createdPost.getContent())
+                .imageUrl(createdPost.getImageUrl())
+                .keyword(createdPost.getKeyword().getKeyword())
+                .userNickname(createdPost.getUser().getNickname())
+                .visible(false)
+                .isRead(false)
+                .postCreatedDate(java.sql.Timestamp.valueOf(post.getCreatedDate()))
+                .build();
+
+        return postResponseDto;
     }
 
     @Override
