@@ -16,18 +16,18 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "FROM posts p " +
             "JOIN p.user u " +
             "LEFT JOIN comments c ON c.post.id = p.id " +
-            "WHERE u.id = :userId AND p.visible = true " +
+            "WHERE u.id = :userId AND p.isRead = true " +
             "GROUP BY p " +
             "ORDER BY p.id DESC "
     )
-    Page<PostWithCommentCount> findAllPostsWithCommentCount(@Param("userId") Long userId, Pageable pageable);
+    Page<PostWithCommentCount> findReadPostsWithCommentCount(@Param("userId") Long userId, Pageable pageable);
 
     @Query("SELECT new com.praise.push.domain.model.PostWithCommentCount(p, COUNT(c)) " +
             "FROM posts p " +
             "JOIN p.user u " +
             "LEFT JOIN comments c ON c.post.id = p.id " +
-            "WHERE u.id = :userId AND p.visible = false " +
+            "WHERE u.id = :userId AND p.isRead = false " +
             "GROUP BY p " +
             "ORDER BY p.id DESC")
-    List<PostWithCommentCount> findInvisiblePostsWithCommentCount(@Param("userId") Long userId);
+    List<PostWithCommentCount> findUnreadPostsWithCommentCount(@Param("userId") Long userId);
 }

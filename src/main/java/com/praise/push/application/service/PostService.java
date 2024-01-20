@@ -3,7 +3,7 @@ package com.praise.push.application.service;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.in.dto.PostSummaryResponseDto;
+import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.out.*;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
@@ -42,9 +42,6 @@ public class PostService implements PostUseCase {
          * TODO:
          * DTO 검증
          * - content 글자수 제한: 40자
-         *
-         * visible이 2개이면
-         * - 새로운 Post 생성 불가
          */
 
         Post post = Post.builder()
@@ -61,23 +58,23 @@ public class PostService implements PostUseCase {
     }
 
     @Override
-    public Page<PostSummaryResponseDto> getVisiblePosts(Long userId, Integer page, Integer size) {
+    public Page<PostThumbnailResponseDto> getReadPosts(Long userId, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<PostWithCommentCount> posts = loadPostPort.loadVisiblePosts(userId, pageable);
+        Page<PostWithCommentCount> posts = loadPostPort.loadReadPosts(userId, pageable);
 
-        return posts.map(PostSummaryResponseDto::fromVisibleEntity);
+        return posts.map(PostThumbnailResponseDto::fromReadEntity);
     }
 
     @Override
-    public List<PostSummaryResponseDto> getInvisiblePosts(Long userId) {
-        List<PostWithCommentCount> posts = loadPostPort.loadInvisiblePosts(userId);
+    public List<PostThumbnailResponseDto> getUnreadPosts(Long userId) {
+        List<PostWithCommentCount> posts = loadPostPort.loadUnreadPosts(userId);
 
         if (posts == null) {
             return null;
         }
 
         return posts.stream()
-                .map(PostSummaryResponseDto::fromInvisibleEntity)
+                .map(PostThumbnailResponseDto::fromUnReadEntity)
                 .collect(Collectors.toList());
     }
 
