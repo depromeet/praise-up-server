@@ -9,7 +9,7 @@ spring:
       maximum-pool-size: 20
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 kakao:
   auth-url: https://kauth.kakao.com/oauth/token
   user-api-url: https://kapi.kakao.com/v2/user/me
