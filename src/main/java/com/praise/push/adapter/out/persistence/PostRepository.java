@@ -20,7 +20,7 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "GROUP BY p " +
             "ORDER BY p.id DESC "
     )
-    Page<PostWithCommentCount> findAllPostsWithCommentCount(@Param("userId") Long userId, Pageable pageable);
+    Page<PostWithCommentCount> findReadPostsWithCommentCount(@Param("userId") Long userId, Pageable pageable);
 
     @Query("SELECT new com.praise.push.domain.model.PostWithCommentCount(p, COUNT(c)) " +
             "FROM posts p " +
@@ -29,5 +29,5 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "WHERE u.id = :userId AND p.visible = false " +
             "GROUP BY p " +
             "ORDER BY p.id DESC")
-    List<PostWithCommentCount> findInvisiblePostsWithCommentCount(@Param("userId") Long userId);
+    List<PostWithCommentCount> findUnreadPostsWithCommentCount(@Param("userId") Long userId);
 }

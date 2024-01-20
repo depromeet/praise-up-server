@@ -3,7 +3,7 @@ package com.praise.push.adapter.in.web;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.in.dto.PostSummaryResponseDto;
+import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.out.PostResponse;
 import com.praise.push.common.model.ResponseDto;
 import com.praise.push.domain.Post;
@@ -51,14 +51,14 @@ class PostController {
          * 공개 전 게시글, 공개 후 확인 안한 게시글 조회
          */
         if (!isRead) {
-            List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts(userId);
+            List<PostThumbnailResponseDto> posts = postUseCase.getUnreadPosts(userId);
             return ResponseDto.ok(posts);
         }
 
         /**
          * 공개 후 확인한 게시글
          */
-        Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(userId, page, size);
+        Page<PostThumbnailResponseDto> posts = postUseCase.getReadPosts(userId, page, size);
         return ResponseDto.ok(posts);
     }
 

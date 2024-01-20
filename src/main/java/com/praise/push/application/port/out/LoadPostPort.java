@@ -10,9 +10,9 @@ import java.util.List;
 public interface LoadPostPort {
     Post findPost(Long postId);
 
-    Page<PostWithCommentCount> loadVisiblePosts(Long userId, Pageable pageable);
+    Page<PostWithCommentCount> loadReadPosts(Long userId, Pageable pageable);
 
-    List<PostWithCommentCount> loadInvisiblePosts(Long userId);
+    List<PostWithCommentCount> loadUnreadPosts(Long userId);
 
     List<Post> findAll();
 }
