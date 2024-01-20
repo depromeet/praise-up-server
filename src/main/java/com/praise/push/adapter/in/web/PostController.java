@@ -3,7 +3,7 @@ package com.praise.push.adapter.in.web;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.in.dto.PostSummaryResponseDto;
+import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.out.PostResponse;
 import com.praise.push.common.model.ResponseDto;
 import com.praise.push.domain.Post;
@@ -42,16 +42,23 @@ class PostController {
     @ApiResponse(responseCode = "200", description = "게시글 목록 조회 성공")
     @GetMapping("/posts")
     ResponseEntity<?> getPosts(
-            @RequestParam("userId") Long userId,
-            @RequestParam("visible") Boolean visible,
+            @RequestParam(value = "userId") Long userId,
+            @RequestParam(value = "isRead") Boolean isRead,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
-        if (!visible) {
-            List<PostSummaryResponseDto> posts = postUseCase.getInvisiblePosts(userId);
+        /**
+         * 공개 전 게시글, 공개 후 확인 안한 게시글 조회
+         */
+        if (!isRead) {
+            List<PostThumbnailResponseDto> posts = postUseCase.getUnreadPosts(userId);
             return ResponseDto.ok(posts);
         }
-        Page<PostSummaryResponseDto> posts = postUseCase.getVisiblePosts(userId, page, size);
+
+        /**
+         * 공개 후 확인한 게시글
+         */
+        Page<PostThumbnailResponseDto> posts = postUseCase.getReadPosts(userId, page, size);
         return ResponseDto.ok(posts);
     }
 
@@ -62,6 +69,10 @@ class PostController {
             @PathVariable(name = "postId") Long postId
     ) {
         Post post = postUseCase.findPost(postId);
+
+        /**
+         * TODO: post.visible = false이면 확인할 수 없는 게시글이다.
+         */
 
         PostResponse postResponse = PostResponse.builder()
                 .userNickname(post.getUser().getNickname())

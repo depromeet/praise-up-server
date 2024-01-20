@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 @Builder
-public record PostSummaryResponseDto(
+public record PostThumbnailResponseDto(
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date postCreatedDate,
         Long postId,
@@ -16,8 +16,8 @@ public record PostSummaryResponseDto(
         String keyword,
         Long commentCount
 ) {
-    public static PostSummaryResponseDto fromVisibleEntity(PostWithCommentCount postWithCommentCount) {
-        return PostSummaryResponseDto.builder()
+    public static PostThumbnailResponseDto fromReadEntity(PostWithCommentCount postWithCommentCount) {
+        return PostThumbnailResponseDto.builder()
                 .postCreatedDate(Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
                 .postId(postWithCommentCount.getPost().getId())
                 .imageUrl(postWithCommentCount.getPost().getImageUrl())
@@ -26,8 +26,8 @@ public record PostSummaryResponseDto(
                 .build();
     }
 
-    public static PostSummaryResponseDto fromInvisibleEntity(PostWithCommentCount postWithCommentCount) {
-        return PostSummaryResponseDto.builder()
+    public static PostThumbnailResponseDto fromUnReadEntity(PostWithCommentCount postWithCommentCount) {
+        return PostThumbnailResponseDto.builder()
                 .postCreatedDate(java.sql.Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
                 .postId(postWithCommentCount.getPost().getId())
                 .imageUrl(postWithCommentCount.getPost().getImageUrl())
