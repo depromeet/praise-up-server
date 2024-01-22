@@ -75,6 +75,7 @@ class PostController {
          */
 
         PostResponseDto postResponse = PostResponseDto.builder()
+                .postId(post.getId())
                 .userNickname(post.getUser().getNickname())
                 .content(post.getContent())
                 .imageUrl(post.getImageUrl())
@@ -84,7 +85,7 @@ class PostController {
                 .postCreatedDate(java.sql.Timestamp.valueOf(post.getCreatedDate()))
                 .build();
 
-        if (!post.getIsRead()) {
+        if (!post.getIsRead() && post.getVisible()) {
             postUseCase.updatePostReadState(postId);
         }
 
