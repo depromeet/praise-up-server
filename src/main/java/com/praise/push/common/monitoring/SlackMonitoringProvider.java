@@ -1,8 +1,10 @@
 package com.praise.push.common.monitoring;
 
+import com.praise.push.common.error.model.ErrorEvent;
 import jakarta.servlet.http.HttpServletRequest;
 import net.gpedro.integrations.slack.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -15,10 +17,11 @@ public class SlackMonitoringProvider implements MonitoringProvider {
     @Value("${error.webhook.url}")
     private String webHookUrl;
 
+    @Async
     @Override
-    public void push(final Exception exception, final HttpServletRequest request) {
+    public void pushError(final ErrorEvent errorEvent) {
         SlackApi slackApi = new SlackApi(webHookUrl);
-        slackApi.call(createSlackMessage(exception, request));
+        slackApi.call(createSlackMessage(errorEvent.exception(), errorEvent.request()));
     }
 
     /**
