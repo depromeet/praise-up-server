@@ -22,4 +22,9 @@ public class Keyword extends BaseTimeEntity {
      * 키워드
      */
     private String keyword;
+
+    /**
+     * 선택된 횟수
+     */
+    private int selectedCount;
 }

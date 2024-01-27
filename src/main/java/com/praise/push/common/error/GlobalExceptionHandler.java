@@ -2,11 +2,12 @@ package com.praise.push.common.error;
 
 import com.praise.push.common.error.exception.PraiseUpException;
 import com.praise.push.common.error.model.ErrorCode;
+import com.praise.push.common.error.model.ErrorEvent;
 import com.praise.push.common.error.model.ErrorResponseDto;
-import com.praise.push.common.monitoring.MonitoringProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private final MonitoringProvider monitoringProvider;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     /**
      * Handle exception that occurs when bean validation check fail
@@ -47,7 +48,8 @@ public class GlobalExceptionHandler {
             final HttpServletRequest request
     ) {
         log.error("Exception: {}, Request URI: {}", exception.getMessage(), request.getRequestURL());
-        monitoringProvider.push(exception, request);
+        ErrorEvent errorEvent = new ErrorEvent(ErrorCode.INTERNAL_SERVER_ERROR, request, exception);
+        applicationEventPublisher.publishEvent(errorEvent);
 
         return ErrorResponseDto.build(ErrorCode.INTERNAL_SERVER_ERROR);
     }
