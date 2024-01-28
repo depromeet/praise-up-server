@@ -2,6 +2,7 @@ package com.praise.push.application;
 
 import com.praise.push.application.port.in.dto.KeywordResponseDto;
 import com.praise.push.application.port.out.LoadKeywordPort;
+import com.praise.push.application.port.out.RecordKeywordPort;
 import com.praise.push.application.service.KeywordService;
 import com.praise.push.domain.Keyword;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +17,9 @@ import static org.mockito.BDDMockito.given;
 
 class KeywordServiceTest {
     private final LoadKeywordPort loadKeywordPort = Mockito.mock(LoadKeywordPort.class);
+    private final RecordKeywordPort recordKeywordPort = Mockito.mock(RecordKeywordPort.class);
 
-    private final KeywordService keywordService = new KeywordService(loadKeywordPort);
+    private final KeywordService keywordService = new KeywordService(loadKeywordPort, recordKeywordPort);
 
     @DisplayName("[성공] 랜덤 키워드 추천 테스트")
     @Test

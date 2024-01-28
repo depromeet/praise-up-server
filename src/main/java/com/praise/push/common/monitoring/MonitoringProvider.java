@@ -1,10 +1,10 @@
 package com.praise.push.common.monitoring;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.praise.push.common.error.model.ErrorEvent;
 
 public interface MonitoringProvider {
     /**
      * push the message to error monitoring platform
      */
-    void push(Exception exception, HttpServletRequest request);
+    void pushError(ErrorEvent errorEvent);
 }
