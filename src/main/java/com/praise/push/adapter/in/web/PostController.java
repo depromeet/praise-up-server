@@ -5,6 +5,7 @@ import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.out.PostResponseDto;
+import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.common.model.ResponseDto;
 import com.praise.push.domain.Post;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +35,27 @@ class PostController {
             @RequestParam("userId") Long userId,
             @ModelAttribute CreatePostCommand command
     ) {
+        validateCreatePostRequestParams(userId);
+        validateCreatePostRequestCommand(command);
+
         PostResponseDto createdPost = postUseCase.createPost(userId, command);
 
         return ResponseDto.created(createdPost);
+    }
+
+    private void validateCreatePostRequestCommand(CreatePostCommand command) {
+        if (command == null ||
+            command.getContent() == null ||
+            command.getImage() == null ||
+            command.getKeywordId() == null) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
+    }
+
+    private void validateCreatePostRequestParams(Long userId) {
+        if (StringUtils.isEmpty(userId)) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
     }
 
     @Operation(summary = "게시글 목록 조회")
@@ -47,6 +67,8 @@ class PostController {
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "24") Integer size
     ) {
+        validateGetPostsRequestParams(userId, isRead);
+
         /**
          * 공개 전 게시글, 공개 후 확인 안한 게시글 조회
          */
@@ -62,17 +84,21 @@ class PostController {
         return ResponseDto.ok(posts);
     }
 
+    private void validateGetPostsRequestParams(Long userId, Boolean isRead) {
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(isRead)) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
+    }
+
     @Operation(summary = "게시글 단건 조회")
     @ApiResponse(responseCode = "200", description = "게시글 조회 성공")
     @GetMapping("/posts/{postId}")
     ResponseEntity<PostResponseDto> findPost(
             @PathVariable(name = "postId") Long postId
     ) {
-        Post post = postUseCase.findPost(postId);
+        validateFindPostRequestPathVariables(postId);
 
-        /**
-         * TODO: post.visible = false이면 확인할 수 없는 게시글이다.
-         */
+        Post post = postUseCase.findPost(postId);
 
         PostResponseDto postResponse = PostResponseDto.builder()
                 .postId(post.getId())
@@ -92,15 +118,28 @@ class PostController {
         return ResponseDto.ok(postResponse);
     }
 
+    private void validateFindPostRequestPathVariables(Long postId) {
+        if (StringUtils.isEmpty(postId)) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
+    }
+
     @Operation(summary = "게시글 삭제")
     @ApiResponse(responseCode = "200", description = "게시글 삭제 성공")
     @DeleteMapping("/posts/{postId}")
     ResponseEntity<Void> deletePost(
             @PathVariable(name = "postId") Long postId
     ) {
+        validateDeletePostRequestPathVariables(postId);
         postUseCase.deletePost(postId);
 
         return ResponseDto.noContent();
+    }
+
+    private void validateDeletePostRequestPathVariables(Long postId) {
+        if (StringUtils.isEmpty(postId)) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
     }
 
     @Operation(summary = "게시글 수정")
@@ -110,6 +149,9 @@ class PostController {
             @PathVariable(name = "postId") Long postId,
             @RequestBody UpdatePostCommand command
     ) {
+        validateUpdatePostRequestPathVariables(postId);
+        validateUpdatePostRequestCommand(command);
+
         postUseCase.updatePost(postId, command);
         Post post = postUseCase.findPost(postId);
 
@@ -122,5 +164,20 @@ class PostController {
                 .build();
 
         return ResponseDto.ok(postResponse);
+    }
+
+    private void validateUpdatePostRequestCommand(UpdatePostCommand command) {
+        if (command == null ||
+                command.getContent() == null ||
+                command.getKeyword() == null ||
+                command.getImageUrl() == null) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
+    }
+
+    private void validateUpdatePostRequestPathVariables(Long postId) {
+        if (StringUtils.isEmpty(postId)) {
+            throw new IllegalArgumentException(ErrorCode.METHOD_ARGUMENT_NOT_VALID.getErrorMessage());
+        }
     }
 }
