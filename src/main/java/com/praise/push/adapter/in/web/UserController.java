@@ -1,7 +1,9 @@
 package com.praise.push.adapter.in.web;
 
+import com.praise.push.application.port.in.dto.UserPostStateResponseDto;
 import com.praise.push.application.port.out.UserResponse;
 import com.praise.push.application.service.UserService;
+import com.praise.push.common.model.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -51,5 +53,14 @@ public class UserController {
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build();
+    }
+
+    @Operation(summary = "글 작성 유무 조회")
+    @ApiResponse(responseCode = "200", description = "글 작성 유무 조회 성공")
+    @GetMapping("/user/{id}/post-state")
+    public ResponseEntity<UserPostStateResponseDto> getUserPostState(@PathVariable("id") Long id) {
+        UserPostStateResponseDto userPostStateResponseDto = userService.getUserPostStatus(id);
+
+        return ResponseDto.ok(userPostStateResponseDto);
     }
 }
