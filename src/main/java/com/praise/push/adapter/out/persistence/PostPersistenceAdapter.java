@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -47,6 +48,11 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
         postJpaEntity.setIsRead(post.getIsRead());
 
         postRepository.save(postJpaEntity);
+    }
+
+    @Override
+    public void updatePostsVisibleIsBeforeDateTime(LocalDateTime dateTime) {
+        postRepository.updatePostsVisibleIsBeforeDateTime(dateTime);
     }
 
     @Override
