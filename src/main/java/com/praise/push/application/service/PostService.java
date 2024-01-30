@@ -5,21 +5,21 @@ import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.out.*;
+import com.praise.push.common.constant.Names;
 import com.praise.push.domain.Keyword;
 import com.praise.push.domain.Post;
-import com.praise.push.common.constant.Names;
 import com.praise.push.domain.User;
 import com.praise.push.domain.model.PostWithCommentCount;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -126,13 +126,7 @@ public class PostService implements PostUseCase {
 
     @Transactional
     public void updateOpenStatus() {
-        var posts = loadPostPort.findAll();
-        var oneDayAgo = LocalDateTime.now().minusDays(1);
-
-        posts.stream().filter(post -> post.getCreatedDate().isAfter(oneDayAgo))
-            .forEach(post -> {
-                post.changeOpen(true);
-                recordPostPort.createPost(post);
-            });
+        LocalDateTime oneDayAgo = LocalDateTime.now().minusDays(1);
+        recordPostPort.updatePostsVisibleIsBeforeDateTime(oneDayAgo);
     }
 }
