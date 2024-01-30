@@ -10,10 +10,9 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import java.util.Date;
+
+import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -81,6 +80,12 @@ public class User extends BaseTimeEntity {
      */
     @Column
     private Boolean isSigned;
+
+    /**
+     * 최근 post 작성 일자
+     */
+    @Column
+    private Date lastPostDate;
 
     @Builder
     public User(String nickname, String profileImage, LocalDate birthday, String email, String phoneNumber, Boolean isSigned) {
