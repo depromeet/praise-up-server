@@ -31,6 +31,7 @@ public class PostService implements PostUseCase {
     private final LoadKeywordPort keywordPort;
     private final LoadUserPort loadUserPort;
     private final RecordCommentPort recordCommentPort;
+    private final RecordUserPort recordUserPort;
 
     @Override
     public PostResponseDto createPost(Long userId, CreatePostCommand command) {
@@ -66,6 +67,8 @@ public class PostService implements PostUseCase {
                 .postCreatedDate(java.sql.Timestamp.valueOf(post.getCreatedDate()))
                 .build();
 
+        recordUserPort.updateUserPostCreatedState(userId, postResponseDto.getPostCreatedDate());
+
         return postResponseDto;
     }
 
@@ -98,8 +101,12 @@ public class PostService implements PostUseCase {
     @Transactional
     @Override
     public boolean deletePost(Long postId) {
+        Post post = loadPostPort.findPost(postId);
+
         recordCommentPort.deleteCommentsByPostId(postId);
         recordPostPort.deletePost(postId);
+
+        recordUserPort.updateUserPostCreatedState(post.getUser().getId(), null);
         return true;
     }
 
