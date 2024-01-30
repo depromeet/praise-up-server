@@ -15,6 +15,7 @@ import java.util.Date;
 import lombok.*;
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users", indexes = {@Index(name = "idx_email", columnList = "email")})
