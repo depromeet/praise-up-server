@@ -3,6 +3,7 @@ package com.praise.push.common.error;
 import com.praise.push.common.error.exception.PraiseUpException;
 import com.praise.push.common.error.model.ErrorCode;
 import com.praise.push.common.error.model.ErrorEvent;
+import com.praise.push.common.error.model.ErrorRequest;
 import com.praise.push.common.error.model.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +49,8 @@ public class GlobalExceptionHandler {
             final HttpServletRequest request
     ) {
         log.error("Exception: {}, Request URI: {}", exception.getMessage(), request.getRequestURL());
-        ErrorEvent errorEvent = new ErrorEvent(ErrorCode.INTERNAL_SERVER_ERROR, request, exception);
+        ErrorRequest errorRequest = ErrorRequest.of(request);
+        ErrorEvent errorEvent = new ErrorEvent(ErrorCode.INTERNAL_SERVER_ERROR, errorRequest, exception);
         applicationEventPublisher.publishEvent(errorEvent);
 
         return ErrorResponseDto.build(ErrorCode.INTERNAL_SERVER_ERROR);
