@@ -5,13 +5,14 @@ import com.praise.push.domain.model.PostWithCommentCount;
 import lombok.Builder;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
 public record PostThumbnailResponseDto(
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date postCreatedDate,
-        Date postCreatedTime,
+        LocalDateTime postCreatedTime,
         Long postId,
         String imageUrl,
         String keyword,
@@ -21,7 +22,7 @@ public record PostThumbnailResponseDto(
     public static PostThumbnailResponseDto fromReadEntity(PostWithCommentCount postWithCommentCount) {
         return PostThumbnailResponseDto.builder()
                 .postCreatedDate(Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
-                .postCreatedTime(Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
+                .postCreatedTime(postWithCommentCount.getPost().getCreatedDate())
                 .postId(postWithCommentCount.getPost().getId())
                 .imageUrl(postWithCommentCount.getPost().getImageUrl())
                 .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
@@ -33,7 +34,7 @@ public record PostThumbnailResponseDto(
     public static PostThumbnailResponseDto fromUnReadEntity(PostWithCommentCount postWithCommentCount) {
         return PostThumbnailResponseDto.builder()
                 .postCreatedDate(Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
-                .postCreatedTime(Timestamp.valueOf(postWithCommentCount.getPost().getCreatedDate()))
+                .postCreatedTime(postWithCommentCount.getPost().getCreatedDate())
                 .postId(postWithCommentCount.getPost().getId())
                 .imageUrl(postWithCommentCount.getPost().getImageUrl())
                 .keyword(postWithCommentCount.getPost().getKeyword().getKeyword())
