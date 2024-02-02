@@ -2,12 +2,16 @@ package com.praise.push.application.service;
 
 import com.praise.push.adapter.out.persistence.UserRepository;
 import com.praise.push.adapter.out.persistence.WithdrawalReasonRepository;
+import com.praise.push.application.port.in.dto.UserPostStateResponseDto;
 import com.praise.push.application.port.out.KakaoAccount;
 import com.praise.push.application.port.out.LoginResponse;
 import com.praise.push.application.port.out.Profile;
 import com.praise.push.application.port.out.UserResponse;
 import com.praise.push.domain.User;
 import com.praise.push.domain.WithdrawalReason;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
@@ -81,5 +85,33 @@ public class UserService {
 
         withdrawalReasonRepository.save(withdrawalReason);
         userRepository.deleteById(id);
+    }
+
+    public UserPostStateResponseDto getUserPostStatus(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User is not found"));
+
+        UserPostStateResponseDto userPostStatusResponseDto;
+
+        Date lastPostDate = user.getLastPostDate();
+        if (lastPostDate == null || compareDate(lastPostDate)) {
+            userPostStatusResponseDto = new UserPostStateResponseDto(true);
+        } else {
+            userPostStatusResponseDto = new UserPostStateResponseDto(false);
+        }
+        return userPostStatusResponseDto;
+    }
+
+    private boolean compareDate(Date lastPostDate) {
+        Date today = new Date();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");   // yyyy-MM-dd HH:mm:ss
+
+        // 이미 작성된 글이 있는 경우
+        if (formatter.format(today).equals(formatter.format(lastPostDate))) {
+            return false;
+        }
+        // 작성된 글이 없는 경우
+        return true;
     }
 }
