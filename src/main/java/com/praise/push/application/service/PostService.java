@@ -3,7 +3,9 @@ package com.praise.push.application.service;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
+import com.praise.push.application.port.in.YearMonthCommand;
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
+import com.praise.push.application.port.in.dto.PostYearMonthResponseDto;
 import com.praise.push.application.port.out.*;
 import com.praise.push.common.constant.Names;
 import com.praise.push.domain.Keyword;
@@ -17,9 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -131,6 +131,14 @@ public class PostService implements PostUseCase {
                 .build();
 
         recordPostPort.updatePostReadState(postId, post);
+    }
+
+    @Override
+    public List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, YearMonthCommand command) {
+        List<Post> posts = loadPostPort.loadUserYearMonthPosts(userId, command);
+        return posts.stream()
+                .map(PostYearMonthResponseDto::fromYearMonthEntity)
+                .collect(Collectors.toList());
     }
 
     @Transactional
