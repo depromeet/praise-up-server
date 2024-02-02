@@ -109,6 +109,7 @@ class PostController {
                 .visible(post.getVisible())
                 .isRead(post.getIsRead())
                 .postCreatedDate(java.sql.Timestamp.valueOf(post.getCreatedDate()))
+                .postCreatedTime(post.getCreatedDate())
                 .build();
 
         if (!post.getIsRead() && post.getVisible()) {
