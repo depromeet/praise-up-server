@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Builder
@@ -52,4 +54,9 @@ public class PostResponseDto {
      */
     @JsonFormat(timezone = "Asia/Seoul", pattern = "yyyy-MM-dd")
     private Date postCreatedDate;
+
+    /**
+     * 게시글 등록 시간
+     */
+    private LocalDateTime postCreatedTime;
 }
