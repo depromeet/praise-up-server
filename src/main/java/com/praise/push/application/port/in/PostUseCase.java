@@ -1,6 +1,7 @@
 package com.praise.push.application.port.in;
 
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
+import com.praise.push.application.port.in.dto.PostYearMonthResponseDto;
 import com.praise.push.application.port.out.PostResponseDto;
 import com.praise.push.domain.Post;
 import org.springframework.data.domain.Page;
@@ -21,4 +22,6 @@ public interface PostUseCase {
     boolean updatePost(Long postId, UpdatePostCommand command);
 
     void updatePostReadState(Long postId);
+
+    List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, YearMonthCommand command);
 }

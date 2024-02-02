@@ -36,4 +36,13 @@ interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Query("UPDATE posts p SET p.visible = true WHERE p.visible = false and p.createdDate < :dateTime")
     void updatePostsVisibleIsBeforeDateTime(@Param("dateTime") LocalDateTime dateTime);
+
+    @Query("SELECT p " +
+            "FROM posts p " +
+            "JOIN p.user u " +
+            "WHERE u.id = :userId AND YEAR (p.createdDate) = :year AND MONTH (p.createdDate) = :month " +
+            "GROUP BY p " +
+            "ORDER BY p.id ASC "
+    )
+    List<Post> findUserYearMonthPosts(@Param("userId") Long userId, @Param("year") Integer year, @Param("month") Integer month);
 }
