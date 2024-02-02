@@ -17,7 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,7 +135,8 @@ public class PostService implements PostUseCase {
 
     @Transactional
     public void updateOpenStatus() {
-        LocalDateTime oneDayAgo = LocalDateTime.now().minusDays(1);
-        recordPostPort.updatePostsVisibleIsBeforeDateTime(oneDayAgo);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime referenceDate = now.minusMinutes(29L).minusNanos(now.getNano());
+        recordPostPort.updatePostsVisibleIsBeforeDateTime(referenceDate);
     }
 }
