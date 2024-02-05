@@ -144,7 +144,7 @@ public class PostService implements PostUseCase {
     @Transactional
     public void updateOpenStatus() {
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime referenceDate = now.minusMinutes(29L).minusNanos(now.getNano());
+        LocalDateTime referenceDate = now.minusMinutes(239L).minusNanos(now.getNano());
         recordPostPort.updatePostsVisibleIsBeforeDateTime(referenceDate);
     }
 }
