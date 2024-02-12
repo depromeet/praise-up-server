@@ -6,4 +6,5 @@ public interface RecordCommentPort {
     void createComment(Comment comment);
     void deleteComment(Long commentId);
     void deleteCommentsByPostId(Long postId);
+    void deleteCommentsByUserId(Long userId);
 }

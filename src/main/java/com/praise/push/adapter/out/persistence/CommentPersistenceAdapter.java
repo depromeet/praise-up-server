@@ -37,6 +37,11 @@ class CommentPersistenceAdapter implements LoadCommentPort, RecordCommentPort {
     }
 
     @Override
+    public void deleteCommentsByUserId(Long userId) {
+        commentRepository.deleteByUserId(userId);
+    }
+
+    @Override
     public Page<Comment> loadComments(Post post, Pageable pageable) {
         return commentRepository
                 .findAllByPostOrderByIdDesc(post, pageable);
