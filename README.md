@@ -1,16 +1,17 @@
 # Praise Push Server
 
-#### Architecture
-
-#### Dependency
+## Dependency
 - 기본적인 의존성입니다. 자세한 의존성은 각 모듈별 build.gradle 파일과 문서를 참고해주세요.
   - Java 21
   - Gradle 
   - MySQL 
-  - Spring Boot 
+  - Spring Boot
+ 
+
+## Architecture
 
 
-### 🖥️ Tech Stack
+## Tech Stack
 #### Framework - <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-social&logo=Spring Boot&logoColor=white">  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-social&logo=Gradle&logoColor=white">
 
 #### ORM - <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-social&logo=Databricks&logoColor=white">
@@ -29,13 +30,8 @@
 
 #### Other - <img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/Firebase Cloud Messaging-FFCA28?style=for-the-social&logo=firebase&logoColor=white">
 
-### DataBase Schema
+## DataBase Schema
 
-### MySQL Schema
+## MySQL Schema
 
-
-
-
-
-
-### Server Team Member
+## Server Team Member
