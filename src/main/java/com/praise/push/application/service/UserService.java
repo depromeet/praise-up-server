@@ -3,10 +3,7 @@ package com.praise.push.application.service;
 import com.praise.push.adapter.out.persistence.UserRepository;
 import com.praise.push.adapter.out.persistence.WithdrawalReasonRepository;
 import com.praise.push.application.port.in.dto.UserPostStateResponseDto;
-import com.praise.push.application.port.out.KakaoAccount;
-import com.praise.push.application.port.out.LoginResponse;
-import com.praise.push.application.port.out.Profile;
-import com.praise.push.application.port.out.UserResponse;
+import com.praise.push.application.port.out.*;
 import com.praise.push.domain.User;
 import com.praise.push.domain.WithdrawalReason;
 
@@ -26,6 +23,8 @@ import org.webjars.NotFoundException;
 public class UserService {
     private final UserRepository userRepository;
     private final WithdrawalReasonRepository withdrawalReasonRepository;
+    private final RecordPostPort recordPostPort;
+    private final RecordCommentPort recordCommentPort;
 
     String[] nicknames = {
         "새벽별빛", "파도소리", "별무리", "라이언", "어피치", "단무지", "프로도", "네오", "무지", "콘",
@@ -82,6 +81,11 @@ public class UserService {
             .userId(user.getId())
             .reason(reason)
             .build();
+
+        // 탈퇴하려는 유저가 작성한 게시글에 달린 반응을 모두 삭제
+        recordCommentPort.deleteCommentsByUserId(user.getId());
+        // 탈퇴하려는 유저가 작성한 게시글을 모두 삭제
+        recordPostPort.deleteByUserId(user.getId());
 
         withdrawalReasonRepository.save(withdrawalReason);
         userRepository.deleteById(id);
