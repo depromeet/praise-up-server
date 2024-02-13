@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,7 +109,11 @@ public class PostService implements PostUseCase {
         recordCommentPort.deleteCommentsByPostId(postId);
         recordPostPort.deletePost(postId);
 
-        recordUserPort.updateUserPostCreatedState(post.getUser().getId(), null);
+        LocalDateTime nowTime = LocalDateTime.now();
+        String formattedLastPostDate = post.getCreatedDate().format(DateTimeFormatter.BASIC_ISO_DATE);
+        String formattedNowTime = nowTime.format(DateTimeFormatter.BASIC_ISO_DATE);
+        if (formattedLastPostDate.equals(formattedNowTime)) recordUserPort.updateUserPostCreatedState(post.getUser().getId(), null);
+
         return true;
     }
 
