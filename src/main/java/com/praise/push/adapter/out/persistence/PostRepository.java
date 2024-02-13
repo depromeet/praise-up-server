@@ -45,4 +45,8 @@ interface PostRepository extends JpaRepository<Post, Long> {
             "ORDER BY p.id ASC "
     )
     List<Post> findUserYearMonthPosts(@Param("userId") Long userId, @Param("year") Integer year, @Param("month") Integer month);
+
+    @Modifying
+    @Query("DELETE FROM posts p WHERE p.user.id = :userId")
+    void deleteByUserId(@Param("userId") Long userId);
 }

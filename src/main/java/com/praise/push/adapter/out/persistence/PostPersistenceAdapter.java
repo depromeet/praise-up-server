@@ -81,4 +81,9 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     public List<Post> findAll() {
         return postRepository.findAll();
     }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        postRepository.deleteByUserId(userId);
+    }
 }

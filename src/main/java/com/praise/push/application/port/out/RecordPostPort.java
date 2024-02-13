@@ -13,4 +13,5 @@ public interface RecordPostPort {
 
     void updatePostReadState(Long postId, Post post);
     void updatePostsVisibleIsBeforeDateTime(LocalDateTime dateTime);
+    void deleteByUserId(Long userId);
 }
