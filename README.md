@@ -23,7 +23,7 @@
 
 #### Database - <img src="https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-social&logo=MySQL&logoColor=white">  <img src="https://img.shields.io/badge/MongoDB-234ea94b.svg?logo=mongodb&logoColor=white&style=for-the-social">
 
-#### NCP - <img src ="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-social&logo=amazonec2&logoColor=white">  <img src ="https://img.shields.io/badge/AWS S3-69A31?style=for-the-social&logo=amazons3&logoColor=white">  <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-social&logo=amazonrds&logoColor=white">  <img src ="https://img.shields.io/badge/AWS Cloud Watch-FF4F8B?style=for-the-social&logo=amazoncloudwatch&logoColor=white">  <img src ="https://img.shields.io/badge/AWS Lambda-F9900?style=for-the-social&logo=awslambda&logoColor=white">
+#### NCP - <img src ="https://img.shields.io/badge/NCP VM Instance-FF9900?style=for-the-social&logo=amazonec2&logoColor=white">  <img src ="https://img.shields.io/badge/NCP Object Storage-69A31?style=for-the-social&logo=amazons3&logoColor=white">
 
 #### Other - <img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/Firebase Cloud Messaging-FFCA28?style=for-the-social&logo=firebase&logoColor=white">
 
