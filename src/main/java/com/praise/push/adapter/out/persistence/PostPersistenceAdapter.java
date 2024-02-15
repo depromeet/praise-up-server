@@ -1,6 +1,5 @@
 package com.praise.push.adapter.out.persistence;
 
-import com.praise.push.application.port.in.YearMonthCommand;
 import com.praise.push.application.port.out.LoadPostPort;
 import com.praise.push.application.port.out.RecordPostPort;
 import com.praise.push.common.error.exception.PraiseUpException;
@@ -73,8 +72,8 @@ class PostPersistenceAdapter implements RecordPostPort, LoadPostPort {
     }
 
     @Override
-    public List<Post> loadUserYearMonthPosts(Long userId, YearMonthCommand command) {
-        return postRepository.findUserYearMonthPosts(userId, command.getYear(), command.getMonth());
+    public List<Post> loadUserYearMonthPosts(Long userId, Integer year, Integer month) {
+        return postRepository.findUserYearMonthPosts(userId, year, month);
     }
 
     @Override

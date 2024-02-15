@@ -1,6 +1,5 @@
 package com.praise.push.application.port.out;
 
-import com.praise.push.application.port.in.YearMonthCommand;
 import com.praise.push.domain.Post;
 import com.praise.push.domain.model.PostWithCommentCount;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,7 @@ public interface LoadPostPort {
 
     List<PostWithCommentCount> loadUnreadPosts(Long userId);
 
-    List<Post> loadUserYearMonthPosts(Long userId, YearMonthCommand command);
+    List<Post> loadUserYearMonthPosts(Long userId, Integer year, Integer month);
 
     List<Post> findAll();
 }

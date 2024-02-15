@@ -1,37 +1,57 @@
-# Praise Push Server
+# Praise Up - 프레이즈 업 <a href=""><img src="https://github.com/depromeet/praise-push-server/assets/70641477/b681ed27-f84f-4dbc-9635-53f2e287cd7e" align="left" width="100"></a>
+이미지를 중심으로 소통하는 칭찬 SNS
 
-## Dependency
-- 기본적인 의존성입니다. 자세한 의존성은 각 모듈별 build.gradle 파일과 문서를 참고해주세요.
-  - Java 21
-  - Gradle 
-  - MySQL 
-  - Spring Boot
- 
+<br>
 
-## Architecture
+## 🛠️ Tech Stack
 
+#### Language & Framework
+<img src="https://img.shields.io/badge/Java (JDK 21)-C70D2C?style=flat&logo=openjdk&logoColor=white"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-social&logo=Spring Boot&logoColor=white">
 
-## Tech Stack
-#### Framework - <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-social&logo=Spring Boot&logoColor=white">  <img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-social&logo=Gradle&logoColor=white">
+#### Build
+<img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-social&logo=Gradle&logoColor=white">
 
-#### ORM - <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-social&logo=Databricks&logoColor=white">
+#### ORM
+<img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-social&logo=Databricks&logoColor=white">
 
-#### Authorization - <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-social&logo=springsecurity&logoColor=white">  <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-social&logo=JSON Web Tokens&logoColor=white">
+#### Test
+<img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-sociak&logo=junit5&logoColor=white">
 
-#### Test - <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-sociak&logo=junit5&logoColor=white"> <img src="https://img.shields.io/badge/CodeCov-F01F7A?style=for-the-sociak&logo=codecov&logoColor=white">
+#### Database
+<img src="https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-social&logo=MySQL&logoColor=white">
 
-#### Database - <img src="https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-social&logo=MySQL&logoColor=white">  <img src="https://img.shields.io/badge/MongoDB-234ea94b.svg?logo=mongodb&logoColor=white&style=for-the-social">
+#### Infra
+<img src ="https://img.shields.io/badge/NCP Instance-FF9900?style=for-the-social&logo=amazonec2&logoColor=white">  <img src ="https://img.shields.io/badge/NCP Object Storage-69A31?style=for-the-social&logo=amazons3&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white">
 
-#### AWS - <img src ="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-social&logo=amazonec2&logoColor=white">  <img src ="https://img.shields.io/badge/AWS S3-69A31?style=for-the-social&logo=amazons3&logoColor=white">  <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-social&logo=amazonrds&logoColor=white">  <img src ="https://img.shields.io/badge/AWS Cloud Watch-FF4F8B?style=for-the-social&logo=amazoncloudwatch&logoColor=white">  <img src ="https://img.shields.io/badge/AWS Lambda-F9900?style=for-the-social&logo=awslambda&logoColor=white">
+#### Other
+<img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/jacoco-BD081C?style=flat&logo=jacoco&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=slack&logoColor=white">
 
-#### Monitoring - <img src="https://img.shields.io/badge/Prometheus-E6522C?style=for-the-social&logo=prometheus&logoColor=white">  <img src="https://img.shields.io/badge/Grafana-F46800?style=for-the-social&logo=grafana&logoColor=white">  <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-social&logo=slack&logoColor=white">
+<br>
 
-#### Admin Web Page - <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-social&logo=react&logoColor=white">  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-social&logo=node.js&logoColor=white">
+## 🤖 Architecture
+<img width="802" alt="image" src="https://github.com/depromeet/praise-push-server/assets/70641477/f7ce8b6d-126e-499c-853b-e8a08e38c6fd">
 
-#### Other - <img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/Firebase Cloud Messaging-FFCA28?style=for-the-social&logo=firebase&logoColor=white">
+<br>
 
-## DataBase Schema
+## ✨ DataBase Schema (ERD)
+![Praise Push  ERD V 1 (1)](https://github.com/depromeet/praise-push-server/assets/70641477/8d90d48c-6883-46ab-90b5-ab22393957fe)
 
-## MySQL Schema
+<br>
 
-## Server Team Member
+## 💁🏻 Server Team Member
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/yunyoung1819">
+        <img src="https://avatars.githubusercontent.com/u/17813930?v=4" width="150px;" alt=""/><br /><sub><b>윤영</b></sub></a><br />
+      </td>
+      <td align="center"><a href="https://github.com/khsrla9806">
+        <img src="https://avatars.githubusercontent.com/u/70641477?v=4" width="150px;" alt=""/><br /><sub><b>김훈섭</b></sub></a><br />
+      </td>
+      <td align="center"><a href="https://github.com/mywnajsldkf">
+        <img src="https://avatars.githubusercontent.com/u/47661695?v=4" width="150px;" alt=""/><br /><sub><b>김정인</b></sub></a><br />
+      </td>
+    </tr>
+  </tbody>
+</table>

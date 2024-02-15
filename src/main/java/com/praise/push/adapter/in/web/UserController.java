@@ -1,7 +1,6 @@
 package com.praise.push.adapter.in.web;
 
 import com.praise.push.application.port.in.PostUseCase;
-import com.praise.push.application.port.in.YearMonthCommand;
 import com.praise.push.application.port.in.dto.PostYearMonthResponseDto;
 import com.praise.push.application.port.in.dto.UserPostStateResponseDto;
 import com.praise.push.application.port.out.UserResponse;
@@ -68,9 +67,10 @@ public class UserController {
     @GetMapping("/user/{userId}/posts")
     public ResponseEntity<List<PostYearMonthResponseDto>> getYearMonthPosts(
             @PathVariable(value = "userId") Long userId,
-            @RequestBody YearMonthCommand command
+            @RequestParam(value = "year") Integer year,
+            @RequestParam(value = "month") Integer month
     ) {
-        List<PostYearMonthResponseDto> posts = postUseCase.getUserYearMonthPosts(userId, command);
+        List<PostYearMonthResponseDto> posts = postUseCase.getUserYearMonthPosts(userId, year, month);
         return ResponseDto.ok(posts);
     }
 }
