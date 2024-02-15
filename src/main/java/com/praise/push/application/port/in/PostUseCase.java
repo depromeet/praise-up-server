@@ -23,5 +23,5 @@ public interface PostUseCase {
 
     void updatePostReadState(Long postId);
 
-    List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, YearMonthCommand command);
+    List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, Integer year, Integer month);
 }
