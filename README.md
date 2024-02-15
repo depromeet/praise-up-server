@@ -24,7 +24,7 @@
 <img src ="https://img.shields.io/badge/NCP Instance-FF9900?style=for-the-social&logo=amazonec2&logoColor=white">  <img src ="https://img.shields.io/badge/NCP Object Storage-69A31?style=for-the-social&logo=amazons3&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white">
 
 #### Other
-<img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/jacoco-BD081C?style=flat&logo=jacoco&logoColor=white">
+<img src="https://img.shields.io/badge/ Swagger-6DB33F?style=for-the-social&logo=swagger&logoColor=white"> <img src="https://img.shields.io/badge/jacoco-BD081C?style=flat&logo=jacoco&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=slack&logoColor=white">
 
 <br>
 
@@ -44,13 +44,13 @@
   <tbody>
     <tr>
       <td align="center"><a href="https://github.com/yunyoung1819">
-        <img src="https://avatars.githubusercontent.com/u/17813930?v=4" width="200px;" alt=""/><br /><sub><b>윤영</b></sub></a><br />
+        <img src="https://avatars.githubusercontent.com/u/17813930?v=4" width="150px;" alt=""/><br /><sub><b>윤영</b></sub></a><br />
       </td>
       <td align="center"><a href="https://github.com/khsrla9806">
-        <img src="https://avatars.githubusercontent.com/u/70641477?v=4" width="200px;" alt=""/><br /><sub><b>김훈섭</b></sub></a><br />
+        <img src="https://avatars.githubusercontent.com/u/70641477?v=4" width="150px;" alt=""/><br /><sub><b>김훈섭</b></sub></a><br />
       </td>
       <td align="center"><a href="https://github.com/mywnajsldkf">
-        <img src="https://avatars.githubusercontent.com/u/47661695?v=4" width="200px;" alt=""/><br /><sub><b>김정인</b></sub></a><br />
+        <img src="https://avatars.githubusercontent.com/u/47661695?v=4" width="150px;" alt=""/><br /><sub><b>김정인</b></sub></a><br />
       </td>
     </tr>
   </tbody>
