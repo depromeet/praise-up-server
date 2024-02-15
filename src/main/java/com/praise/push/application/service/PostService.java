@@ -3,7 +3,6 @@ package com.praise.push.application.service;
 import com.praise.push.application.port.in.CreatePostCommand;
 import com.praise.push.application.port.in.PostUseCase;
 import com.praise.push.application.port.in.UpdatePostCommand;
-import com.praise.push.application.port.in.YearMonthCommand;
 import com.praise.push.application.port.in.dto.PostThumbnailResponseDto;
 import com.praise.push.application.port.in.dto.PostYearMonthResponseDto;
 import com.praise.push.application.port.out.*;
@@ -139,8 +138,8 @@ public class PostService implements PostUseCase {
     }
 
     @Override
-    public List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, YearMonthCommand command) {
-        List<Post> posts = loadPostPort.loadUserYearMonthPosts(userId, command);
+    public List<PostYearMonthResponseDto> getUserYearMonthPosts(Long userId, Integer year, Integer month) {
+        List<Post> posts = loadPostPort.loadUserYearMonthPosts(userId, year, month);
         return posts.stream()
                 .map(PostYearMonthResponseDto::fromYearMonthEntity)
                 .collect(Collectors.toList());
